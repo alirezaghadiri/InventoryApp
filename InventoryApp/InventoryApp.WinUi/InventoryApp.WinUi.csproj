@@ -75,7 +75,22 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="view\Corporation\Add.cs">
+    <Compile Include="view\Corporation\Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\Corporation\List.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\Inventory\Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\Inventory\List.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\ProductUnit\Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\ProductUnit\List.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="view\systemform\DBconnectionSettingsForm.cs">

@@ -10,11 +10,15 @@ namespace InventoryApp.Repositories
 {
     public class ProductUnitRepository : IProductUnit
     {
+        DataLayer.InventoryDBContext contaxt ;
+        public ProductUnitRepository()
+        {
+            contaxt = new DataLayer.InventoryDBContext();
+        }
         public bool Add(ProductUnit unit)
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 unit.CreatedByUserId = DatabaseTools.GetUserID;
                 unit.CreatedDate = DateTime.Now;
                 unit.Deleted = false;
@@ -31,7 +35,6 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 var unit = contaxt.ProductUnits.FirstOrDefault(p => p.ProductUnitId == id);
                 unit.Deleted = true;
                 unit.DeletedByUserId = DatabaseTools.GetUserID;
@@ -48,7 +51,6 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 return contaxt.ProductUnits.FirstOrDefault(p => p.ProductUnitId == id);
             }
             catch
@@ -56,10 +58,15 @@ namespace InventoryApp.Repositories
                 return null;
             }
         }
+
+        public ICollection<ProductUnit> GetAll()
+        {
+            return contaxt.ProductUnits.Where(p => p.Deleted == false).ToList();
+        }
+
         public ICollection<ProductUnit> Search(ProductUnitSearchType SearchType, string value)
         {
             List<ProductUnit> List = new List<ProductUnit>();
-            var contaxt = new DataLayer.InventoryDBContext();
             switch (SearchType)
             {
                 case ProductUnitSearchType.id:
@@ -102,7 +109,6 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 var _unit = contaxt.ProductUnits.FirstOrDefault(p => p.ProductUnitId == unit.ProductUnitId);
                 _unit = unit;
                 _unit.ChangedByUserId = DatabaseTools.GetUserID;

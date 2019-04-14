@@ -13,6 +13,7 @@ namespace InventoryApp.WinUi.IOC
         public TypesResgistry()
         {
             For<ICorporation>().Use<CorporationRepository>();
+            For<IProductUnit>().Use<ProductUnitRepository>();
         }
     }
 }

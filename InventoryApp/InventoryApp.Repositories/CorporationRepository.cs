@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryApp.Entities;
 using InventoryApp.RepositortAbstracts;
 
 namespace InventoryApp.Repositories
@@ -146,6 +147,11 @@ namespace InventoryApp.Repositories
             {
                 return false;
             }
+        }
+
+        public ICollection<Corporation> GetAll()
+        {
+            return contaxt.Corporations.Where(p => p.Deleted == false).ToList();
         }
     }
 }

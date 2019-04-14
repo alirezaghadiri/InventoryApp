@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace InventoryApp.WinUi.view.Corporation
 {
-    public class Add : Framwork.EntityEditor<Entities.Corporation>
+    public class Editor : Framwork.EntityEditor<Entities.Corporation>
     {
         RepositortAbstracts.ICorporation Corps;
-        public Add(RepositortAbstracts.ICorporation CorporationRepository)
+        public Editor(RepositortAbstracts.ICorporation CorporationRepository)
         {
             this.Corps = CorporationRepository;
-            ViewTitle = "تعریف شرکت";
+            if (Entity.CorporationId == 0)
+                ViewTitle = "تعریف شرکت";
+            else
+                ViewTitle = "ویرایش شرکت " + Entity.CorporationId;
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -23,5 +26,6 @@ namespace InventoryApp.WinUi.view.Corporation
             AdjustControls();
             base.OnLoad(e);
         }
+       
     }
 }

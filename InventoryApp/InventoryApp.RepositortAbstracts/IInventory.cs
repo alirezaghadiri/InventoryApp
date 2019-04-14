@@ -13,6 +13,7 @@ namespace InventoryApp.RepositortAbstracts
         bool Update(Inventory inventory);
         bool Delete(int id);
         Inventory Find(int id);
+        ICollection<Inventory> GetAll();
         ICollection<Inventory> Search(InventorySearchType SearchType, string value);
     }
     public enum InventorySearchType

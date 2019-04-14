@@ -34,11 +34,12 @@ namespace InventoryApp.Framwork
             form.RightToLeft = RightToLeft.Yes;
             form.Font = new System.Drawing.Font("Tahoma", 8);
             form.Text = viewInstance.ViewTitle;
-            //form.ShowInTaskbar = false;
+            form.ShowInTaskbar = false;
             form.Controls.Add(viewInstance);
-            form.FormClosed += ((obj, e) => openForm.Remove(viewInstance.ViewTitle));
+            form.FormClosed += ((obj, e) => openForm.Remove(viewInstance.ViewIdentifier));
             viewInstance.Dock = DockStyle.Fill;
             openForm.Add(viewInstance.ViewIdentifier, form);
+
 
             if (DisplayIsDialog)
                 form.ShowDialog();
@@ -47,7 +48,7 @@ namespace InventoryApp.Framwork
 
             return (T)viewInstance;
         }
-
+       
         internal void CloseView(ViewBase viewBase, DialogResult? dialogResult = null)
         {
             if (openForm.ContainsKey(viewBase.ViewIdentifier))

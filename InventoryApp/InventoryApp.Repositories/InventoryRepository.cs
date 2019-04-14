@@ -10,11 +10,15 @@ namespace InventoryApp.Repositories
 {
     public class InventoryRepository : RepositortAbstracts.IInventory
     {
+        DataLayer.InventoryDBContext contaxt;
+        public InventoryRepository()
+        {
+             contaxt = new DataLayer.InventoryDBContext();
+        }
         public bool Add(Inventory inventory)
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 inventory.Deleted = false;
                 inventory.CreatedByUserId = DatabaseTools.GetUserID;
                 inventory.CreatedDate = DateTime.Now;
@@ -32,7 +36,6 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 var inventory = contaxt.Inventories.FirstOrDefault(p => p.InventoryId == id);
                 inventory.Deleted = true;
                 inventory.DeletedByUserId = DatabaseTools.GetUserID;
@@ -50,7 +53,6 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 return contaxt.Inventories.FirstOrDefault(p => p.InventoryId == id);
             }
             catch
@@ -59,10 +61,14 @@ namespace InventoryApp.Repositories
             }
         }
 
+        public ICollection<Inventory> GetAll()
+        {
+            return contaxt.Inventories.Where(p => p.Deleted == false).ToList();
+        }
+
         public ICollection<Inventory> Search(InventorySearchType SearchType, string value)
         {
             List<Inventory> List = new List<Inventory>();
-            var contaxt = new DataLayer.InventoryDBContext();
             switch (SearchType)
             {
                 case InventorySearchType.All:
@@ -131,9 +137,8 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var contaxt = new DataLayer.InventoryDBContext();
                 var _inventory = contaxt.Inventories.FirstOrDefault(p => p.InventoryId == inventory.InventoryId);
-                _inventory =inventory;
+                _inventory = inventory;
                 _inventory.ChangedDate = DateTime.Now;
                 _inventory.ChangedByUserId = DatabaseTools.GetUserID;
                 contaxt.SaveChanges();

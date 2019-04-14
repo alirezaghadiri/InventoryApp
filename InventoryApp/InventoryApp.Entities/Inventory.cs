@@ -7,6 +7,7 @@ namespace InventoryApp.Entities
     public class Inventory
     {
         public int InventoryId {get;set;}
+        public int CorporationId { get; set; }
         public string Title { get; set; }
         public string Address { get; set; }
         public string Telephone { get; set; }
@@ -31,7 +32,7 @@ namespace InventoryApp.Entities
         public virtual Corporation corporation { get; set; }
         public virtual ICollection<InventoryInsHeader> InventoryInsHeaders { get; set; }
         public virtual ICollection<InventoryOutsHeader> InventoryOutsHeaders { get; set; }
-        public ICollection<ProductCategory> ProductCategories { get; set; }
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
 
         public static EntityTypeConfiguration<Inventory> Map()
         {
@@ -39,8 +40,7 @@ namespace InventoryApp.Entities
             map.Property(I=>I.Title).HasMaxLength(100).IsRequired();
             map.Property(I=>I.Description).HasMaxLength(1000);
             map.Property(I=>I.Address).HasMaxLength(1000);
-            map.HasRequired(I => I.corporation).WithMany(C => C.Inventories)
-                .Map(_map => _map.MapKey("CorporationId"));
+            map.HasRequired(I => I.corporation).WithMany(C => C.Inventories).HasForeignKey(c => c.CorporationId);    
             map.HasOptional(C => C.DeletedUser).WithMany(U => U.DeletedInventory).HasForeignKey(I => I.DeletedByUserId);
             map.HasRequired(C => C.CreatedUser).WithMany(U => U.CreatedInventory).HasForeignKey(I => I.CreatedByUserId).WillCascadeOnDelete(false);
             map.HasOptional(C => C.ChangedUser).WithMany(U => U.ChangedInventory).HasForeignKey(I => I.ChangedByUserId);

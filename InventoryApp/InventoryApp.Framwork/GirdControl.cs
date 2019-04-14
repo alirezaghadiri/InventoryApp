@@ -40,16 +40,19 @@ namespace InventoryApp.Framwork
         {
             bindingSource = new BindingSource();
             bindingSource.DataSource = dataSource;
+            grid.DataSource = bindingSource;
             bindingSource.ResetBindings(true);
             return this;
         }
         public void ResetBindings()
         {
             bindingSource?.ResetBindings(true);
+            grid.DataSource = bindingSource;
+
         }
         public void RemoveCurrent()
         {
-            bindingSource.ResetCurrentItem();
+            bindingSource.RemoveCurrent();
             ResetBindings();
         }
         public TModel CurrentItem
