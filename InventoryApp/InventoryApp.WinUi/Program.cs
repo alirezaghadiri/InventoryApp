@@ -21,7 +21,7 @@ namespace InventoryApp.WinUi
             {
                 var Lf = new view.systemform.LoginForm();
                 if (Lf.ShowDialog() == DialogResult.OK)
-                    Application.Run(new Form1());
+                    Application.Run(new MainForm());
                 else
                 {
                     Application.Exit();

@@ -68,6 +68,9 @@
     <Compile Include="ViewEngine.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MainFormBase.resx">
+      <DependentUpon>MainFormBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>

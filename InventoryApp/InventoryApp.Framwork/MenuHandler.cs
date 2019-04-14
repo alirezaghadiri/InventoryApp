@@ -15,9 +15,10 @@ namespace InventoryApp.Framwork
         {
             item.Add("-");
         }
-        public MenuHandler addmenu(string title, Image img, EventHandler evenhander)
+        public MenuHandler addmenu(string title, Image img,Keys ShortcutKey, EventHandler evenhander)
         {
             var menu = (ToolStripMenuItem)item.Add(title, img, evenhander);
+            menu.ShortcutKeys = ShortcutKey;
             return new MenuHandler(menu.DropDownItems);
         }
     }
