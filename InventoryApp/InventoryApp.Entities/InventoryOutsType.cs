@@ -6,14 +6,14 @@ namespace InventoryApp.Entities
 {
     public class InventoryOutsType
     {
-        public int Id { get; set; }
+        public int InventoryOutsTypeId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 
         //Delete
         public virtual User DeletedUser { get; set; }
         public bool Deleted { get; set; }
-        public DateTime?eletedDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
         public int? DeletedByUserId { get; set; }
 
         //Created

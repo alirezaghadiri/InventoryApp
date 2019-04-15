@@ -1,9 +1,9 @@
 F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\bin\Debug\InventoryApp.RepositortAbstracts.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\bin\Debug\InventoryApp.RepositortAbstracts.pdb
-F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\obj\Debug\InventoryApp.RepositortAbstracts.csprojResolveAssemblyReference.cache
-F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\obj\Debug\InventoryApp.RepositortAbstracts.dll
-F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\obj\Debug\InventoryApp.RepositortAbstracts.pdb
 F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\bin\Debug\InventoryApp.Entities.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\bin\Debug\EntityFramework.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\bin\Debug\InventoryApp.Entities.pdb
 F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\bin\Debug\EntityFramework.xml
+F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\obj\Debug\InventoryApp.RepositortAbstracts.csprojResolveAssemblyReference.cache
+F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\obj\Debug\InventoryApp.RepositortAbstracts.dll
+F:\GitRepository\C#\InventoryApp\InventoryApp.RepositortAbstracts\obj\Debug\InventoryApp.RepositortAbstracts.pdb

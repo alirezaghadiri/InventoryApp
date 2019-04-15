@@ -5,7 +5,7 @@ namespace InventoryApp.Entities
 {
     public class InventoryInsHeader
     {
-        public int Id { get; set; }
+        public int InventoryInsHeaderId { get; set; }
         public DateTime Date { get; set; }
 
         //Accepet

@@ -1,9 +1,6 @@
+F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\InventoryApp.Repositories.dll.config
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\InventoryApp.Repositories.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\InventoryApp.Repositories.pdb
-F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\obj\Debug\InventoryApp.Repositories.csprojResolveAssemblyReference.cache
-F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\obj\Debug\InventoryApp.Repositories.dll
-F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\obj\Debug\InventoryApp.Repositories.pdb
-F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\InventoryApp.Repositories.dll.config
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\EntityFramework.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\EntityFramework.SqlServer.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\InventoryApp.DataLayer.dll
@@ -14,3 +11,6 @@ F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\InventoryAp
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\InventoryApp.RepositortAbstracts.pdb
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\EntityFramework.xml
 F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\bin\Debug\EntityFramework.SqlServer.xml
+F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\obj\Debug\InventoryApp.Repositories.csprojResolveAssemblyReference.cache
+F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\obj\Debug\InventoryApp.Repositories.dll
+F:\GitRepository\C#\InventoryApp\InventoryApp.Repositories\obj\Debug\InventoryApp.Repositories.pdb

@@ -4,7 +4,7 @@ namespace InventoryApp.Entities
 {
     public class InventoryOutsDeatil
     {
-        public int Id { get; set; }
+        public int InventoryOutsDeatilId { get; set; }
 
         public decimal Amount { get; set; }
 

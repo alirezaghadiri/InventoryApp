@@ -28,8 +28,7 @@ namespace InventoryApp.WinUi
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ICorporation corporation = new CorporationRepository();
-            lblcorporation.Text = string.Format("تعداد شرکت : {0} شرکت", corporation.Count());
+            
         }
     }
 }

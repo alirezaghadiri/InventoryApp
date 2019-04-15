@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApp.WinUi", "InventoryApp.WinUi\InventoryApp.WinUi.csproj", "{4F6D9E0B-1027-45DE-A9D1-4042443D0104}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApp.RepositortAbstracts", "InventoryApp.RepositortAbstracts\InventoryApp.RepositortAbstracts.csproj", "{96846E5F-9FDD-44E7-B331-F932D0EC4980}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApp.Repositories", "InventoryApp.Repositories\InventoryApp.Repositories.csproj", "{9C044CC9-73DD-46FC-B4F1-E37AFAA18ABB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApp.Entities", "InventoryApp.Entities\InventoryApp.Entities.csproj", "{1D86EE19-8BBB-481F-BDC6-49E3CE0DC274}"
@@ -14,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApp.DataLayer", "InventoryApp.DataLayer\InventoryApp.DataLayer.csproj", "{FF92F457-61B0-4D74-9DF2-CA35D1304D6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApp.Framwork", "InventoryApp.Framwork\InventoryApp.Framwork.csproj", "{B6A52914-CBCA-45C6-B687-EC6E3FF647F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApp.RepositortAbstracts", "InventoryApp.RepositortAbstracts\InventoryApp.RepositortAbstracts.csproj", "{2E55E87C-2F6D-4BC7-85DF-22ECA221CA7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +25,6 @@ Global
 		{4F6D9E0B-1027-45DE-A9D1-4042443D0104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F6D9E0B-1027-45DE-A9D1-4042443D0104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F6D9E0B-1027-45DE-A9D1-4042443D0104}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96846E5F-9FDD-44E7-B331-F932D0EC4980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96846E5F-9FDD-44E7-B331-F932D0EC4980}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96846E5F-9FDD-44E7-B331-F932D0EC4980}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96846E5F-9FDD-44E7-B331-F932D0EC4980}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C044CC9-73DD-46FC-B4F1-E37AFAA18ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C044CC9-73DD-46FC-B4F1-E37AFAA18ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C044CC9-73DD-46FC-B4F1-E37AFAA18ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{B6A52914-CBCA-45C6-B687-EC6E3FF647F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A52914-CBCA-45C6-B687-EC6E3FF647F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A52914-CBCA-45C6-B687-EC6E3FF647F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E55E87C-2F6D-4BC7-85DF-22ECA221CA7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E55E87C-2F6D-4BC7-85DF-22ECA221CA7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E55E87C-2F6D-4BC7-85DF-22ECA221CA7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E55E87C-2F6D-4BC7-85DF-22ECA221CA7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

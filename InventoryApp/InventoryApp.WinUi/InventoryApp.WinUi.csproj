@@ -164,7 +164,7 @@
       <Name>InventoryApp.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\InventoryApp.RepositortAbstracts\InventoryApp.RepositortAbstracts.csproj">
-      <Project>{96846e5f-9fdd-44e7-b331-f932d0ec4980}</Project>
+      <Project>{2e55e87c-2f6d-4bc7-85df-22eca221ca7b}</Project>
       <Name>InventoryApp.RepositortAbstracts</Name>
     </ProjectReference>
   </ItemGroup>

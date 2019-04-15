@@ -7,7 +7,7 @@ namespace InventoryApp.Entities
 {
     public class Role
     {
-        public int Roleid { get; set; }
+        public int RoleId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public virtual ICollection<User> Users { get; set; }

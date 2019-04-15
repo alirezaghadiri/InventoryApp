@@ -6,7 +6,7 @@ namespace InventoryApp.Entities
 {
     public class InventoryInsType
     {
-        public int Id { get; set; }
+        public int InventoryInsTypeId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 

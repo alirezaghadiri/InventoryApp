@@ -50,10 +50,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CorporationRepository.cs" />
+    <Compile Include="InventoryInsDeatilRepository.cs" />
+    <Compile Include="InventoryInsHeaderRepository.cs" />
+    <Compile Include="InventoryInsTypeRepository.cs" />
+    <Compile Include="InventoryOutsDeatilRepository.cs" />
+    <Compile Include="InventoryOutsHeaderRepository.cs" />
+    <Compile Include="InventoryOutsTypeRepository.cs" />
     <Compile Include="InventoryRepository.cs" />
+    <Compile Include="ProductCategoryRepository.cs" />
+    <Compile Include="ProductParameterRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="ProductUnitRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +75,7 @@
       <Name>InventoryApp.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\InventoryApp.RepositortAbstracts\InventoryApp.RepositortAbstracts.csproj">
-      <Project>{96846e5f-9fdd-44e7-b331-f932d0ec4980}</Project>
+      <Project>{2e55e87c-2f6d-4bc7-85df-22eca221ca7b}</Project>
       <Name>InventoryApp.RepositortAbstracts</Name>
     </ProjectReference>
   </ItemGroup>

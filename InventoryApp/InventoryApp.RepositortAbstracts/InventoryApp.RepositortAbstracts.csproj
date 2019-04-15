@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96846E5F-9FDD-44E7-B331-F932D0EC4980}</ProjectGuid>
+    <ProjectGuid>{2E55E87C-2F6D-4BC7-85DF-22ECA221CA7B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>InventoryApp.RepositortAbstracts</RootNamespace>
@@ -42,8 +42,17 @@
   <ItemGroup>
     <Compile Include="ICorporation.cs" />
     <Compile Include="IInventory.cs" />
+    <Compile Include="IInventoryInsDeatil.cs" />
+    <Compile Include="IInventoryInsHeader.cs" />
+    <Compile Include="IInventoryInsType.cs" />
+    <Compile Include="IInventoryOutsDeatil.cs" />
+    <Compile Include="IInventoryOutsHeader.cs" />
+    <Compile Include="IInventoryOutsType.cs" />
     <Compile Include="IProduct.cs" />
+    <Compile Include="IProductCategory.cs" />
+    <Compile Include="IProductParameter.cs" />
     <Compile Include="IProductUnit.cs" />
+    <Compile Include="IRole.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

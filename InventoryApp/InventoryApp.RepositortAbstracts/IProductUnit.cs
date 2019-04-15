@@ -1,26 +1,14 @@
-﻿using InventoryApp.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using InventoryApp.Entities;
 
 namespace InventoryApp.RepositortAbstracts
 {
     public interface IProductUnit
     {
-        bool Add(ProductUnit unit);
+        bool Add(ProductUnit _ProductUnit);
+        bool Update(ProductUnit _ProductUnit);
         bool Delete(int id);
-        bool Update(ProductUnit unit);
         ProductUnit Find(int id);
         ICollection<ProductUnit> GetAll();
-        ICollection<ProductUnit> Search(ProductUnitSearchType SearchType, string value);
-    }
-    public enum ProductUnitSearchType
-    {
-        All = 0,
-        id = 1,
-        title = 2,
-        
     }
 }

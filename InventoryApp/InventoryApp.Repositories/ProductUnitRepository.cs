@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using InventoryApp.Entities;
 using InventoryApp.RepositortAbstracts;
+using System.Collections.Generic;
 
 namespace InventoryApp.Repositories
 {
     public class ProductUnitRepository : IProductUnit
     {
-        DataLayer.InventoryDBContext contaxt ;
+        private DataLayer.InventoryDBContext contaxt { get; set; }
         public ProductUnitRepository()
         {
             contaxt = new DataLayer.InventoryDBContext();
         }
-        public bool Add(ProductUnit unit)
+        public bool Add(ProductUnit _ProductUnit)
         {
             try
             {
-                unit.CreatedByUserId = DatabaseTools.GetUserID;
-                unit.CreatedDate = DateTime.Now;
-                unit.Deleted = false;
-                contaxt.ProductUnits.Add(unit);
+                _ProductUnit.CreatedDate = DateTime.Now;
+                _ProductUnit.CreatedByUserId = DatabaseTools.GetUserID;
+                contaxt.ProductUnits
+                .Add(_ProductUnit);
                 contaxt.SaveChanges();
                 return true;
             }
@@ -35,92 +33,51 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var unit = contaxt.ProductUnits.FirstOrDefault(p => p.ProductUnitId == id);
-                unit.Deleted = true;
-                unit.DeletedByUserId = DatabaseTools.GetUserID;
-                unit.DeletedDate = DateTime.Now;
+                var _contaxt = contaxt.ProductUnits
+                .Where(p => p.ProductUnitId == id).FirstOrDefault();
+                _contaxt.Deleted = true;
+                _contaxt.DeletedDate = DateTime.Now;
+                _contaxt.DeletedByUserId = DatabaseTools.GetUserID;
                 contaxt.SaveChanges();
                 return true;
             }
             catch
             {
-                return true;
+                return false;
             }
         }
         public ProductUnit Find(int id)
         {
             try
             {
-                return contaxt.ProductUnits.FirstOrDefault(p => p.ProductUnitId == id);
+                return contaxt.ProductUnits
+                .Where(p => p.ProductUnitId == id).FirstOrDefault();
             }
             catch
             {
                 return null;
             }
         }
-
-        public ICollection<ProductUnit> GetAll()
-        {
-            return contaxt.ProductUnits.Where(p => p.Deleted == false).ToList();
-        }
-
-        public ICollection<ProductUnit> Search(ProductUnitSearchType SearchType, string value)
-        {
-            List<ProductUnit> List = new List<ProductUnit>();
-            switch (SearchType)
-            {
-                case ProductUnitSearchType.id:
-                    {
-                        int id = 0;
-                        if (int.TryParse(value, out id))
-                        {
-                            var _unit = contaxt.ProductUnits.Where(p => p.ProductUnitId == id).ToList();
-                            List.AddRange(_unit);
-                        }
-                        return List;
-                    }
-
-                case ProductUnitSearchType.title:
-                    {
-                        var _unit = contaxt.ProductUnits.Where(p => p.Title.Contains(value)).ToList();
-                        List.AddRange(_unit);
-                        return List;
-                    }
-                case ProductUnitSearchType.All:
-                    {
-                        var _unit = contaxt.ProductUnits.Where(p => p.Title.Contains(value)).ToList();
-                        List.AddRange(_unit);
-                        int id = 0;
-                        if (int.TryParse(value, out id))
-                        {
-                            _unit = contaxt.ProductUnits.Where(p => p.ProductUnitId == id).ToList();
-                            List.AddRange(_unit);
-                        }
-
-                        return List;
-                    }
-                default:
-                    {
-                        return null;
-                    }
-            }
-        }
-        public bool Update(ProductUnit unit)
+        public bool Update(ProductUnit _ProductUnit)
         {
             try
             {
-                var _unit = contaxt.ProductUnits.FirstOrDefault(p => p.ProductUnitId == unit.ProductUnitId);
-                _unit = unit;
-                _unit.ChangedByUserId = DatabaseTools.GetUserID;
-                _unit.ChangedDate = DateTime.Now;
-                contaxt.SaveChanges();
+                var _contaxt = contaxt.ProductUnits
+                .Where(p => p.ProductUnitId == _ProductUnit.ProductUnitId).FirstOrDefault();
+                _contaxt = _ProductUnit;
+                _contaxt.ChangedDate = DateTime.Now;
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
                 return true;
             }
             catch
             {
-                return true;
+                return false;
             }
         }
-
+        public ICollection<ProductUnit> GetAll()
+        {
+            return contaxt.ProductUnits
+            .Where(p => p.Deleted == false).ToList();
+        }
     }
 }
