@@ -7,3 +7,4 @@ F:\GitRepository\C#\InventoryApp\InventoryApp.Entities\bin\Debug\EntityFramework
 F:\GitRepository\C#\InventoryApp\InventoryApp.Entities\bin\Debug\EntityFramework.SqlServer.xml
 F:\GitRepository\C#\InventoryApp\InventoryApp.Entities\obj\Debug\InventoryApp.Entities.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.Entities\obj\Debug\InventoryApp.Entities.pdb
+F:\GitRepository\C#\InventoryApp\InventoryApp.Entities\obj\Debug\InventoryApp.Entities.csprojResolveAssemblyReference.cache

@@ -55,6 +55,11 @@ namespace InventoryApp.Framwork
             bindingSource.RemoveCurrent();
             ResetBindings();
         }
+        public void AddItem(TModel model)
+        {
+            bindingSource.Add(model);
+            ResetBindings();
+        }
         public TModel CurrentItem
         {
             get

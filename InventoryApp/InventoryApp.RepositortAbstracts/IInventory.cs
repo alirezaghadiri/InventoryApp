@@ -10,5 +10,6 @@ namespace InventoryApp.RepositortAbstracts
         bool Delete(int id);
         Inventory Find(int id);
         ICollection<Inventory> GetAll();
+        int CanDelete(int ID);
     }
 }

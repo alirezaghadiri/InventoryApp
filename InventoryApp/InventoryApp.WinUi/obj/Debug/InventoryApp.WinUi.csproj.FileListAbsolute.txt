@@ -17,7 +17,6 @@ F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\bin\Debug\InventoryApp.Entit
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.exe
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.pdb
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.view.systemform.LoginForm.resources
-F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.Form1.resources
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\bin\Debug\InventoryApp.Repositories.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\bin\Debug\InventoryApp.RepositortAbstracts.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\bin\Debug\InventoryApp.Repositories.pdb

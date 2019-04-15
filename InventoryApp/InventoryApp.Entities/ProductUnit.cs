@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
@@ -26,6 +27,8 @@ namespace InventoryApp.Entities
         public virtual User ChangedUser { get; set; }
         public DateTime? ChangedDate { get; set; }
         public int? ChangedByUserId { get; set; }
+
+        public ICollection<Product> Products { get; set; }
 
         public static EntityTypeConfiguration<ProductUnit> Map()
         {

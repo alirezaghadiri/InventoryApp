@@ -76,8 +76,19 @@ namespace InventoryApp.Repositories
         }
         public ICollection<ProductCategory> GetAll()
         {
-            return contaxt.ProductCategorys
-            .Where(p => p.Deleted == false).ToList();
+            return contaxt.ProductCategorys.Where(p => p.Deleted == false).ToList();
+        }
+
+        public ICollection<ProductCategory> GetByParent(int id=0)
+        {
+            return contaxt.ProductCategorys.Where(p => p.Deleted == false & p.SubProductCategoryID==id).ToList();
+        }
+
+        public int CanDelete(int Id)
+        {
+            var count = contaxt.Products.Where(p => p.Deleted == false & p.ProductCategoryId == Id).Count();
+            count += contaxt.ProductParameters.Where(p => p.Deleted == false & p.ProductCategoryId == Id).Count();
+            return count;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace InventoryApp.Entities
     {
         public int ProductCategoryId { get; set; }
         public int SubProductCategoryID { get; set; }
+        public int InventoryId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal Capacity { get; set; }
@@ -38,8 +39,7 @@ namespace InventoryApp.Entities
             var map = new EntityTypeConfiguration<ProductCategory>();
             map.Property(P => P.Title).HasMaxLength(100).IsRequired();
             map.Property(P => P.Description).HasMaxLength(1000);
-            map.HasRequired(P=>P.Inventories).WithMany(C=>C.ProductCategories)
-               .Map(_map => _map.MapKey("InventoryId"));
+            map.HasRequired(P => P.Inventories).WithMany(C => C.ProductCategories).HasForeignKey(p=>p.InventoryId);
             map.HasOptional(C => C.DeletedUser).WithMany(U => U.DeletedProductCategory).HasForeignKey(I => I.DeletedByUserId);
             map.HasRequired(C => C.CreatedUser).WithMany(U => U.CreatedProductCategory).HasForeignKey(I => I.CreatedByUserId).WillCascadeOnDelete(false);
             map.HasOptional(C => C.ChangedUser).WithMany(U => U.ChangedProductCategory).HasForeignKey(I => I.ChangedByUserId);

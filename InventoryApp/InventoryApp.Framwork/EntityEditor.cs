@@ -62,7 +62,31 @@ namespace InventoryApp.Framwork
                 Priority = createdControls.Count + 1,
             });
             return textbox;
-        } 
+        }
+        protected TextBox TextBox( string title, bool multiline = false)
+        {
+            var label = new Label();
+            label.Text = title;
+            var textbox = new TextBox();
+            this.Controls.Add(label);
+            this.Controls.Add(textbox);
+            textbox.Left = 20;
+            textbox.Top = 10;
+            textbox.Width = 200;
+            if (multiline)
+            {
+                textbox.Multiline = true;
+                textbox.ScrollBars = ScrollBars.Vertical;
+                textbox.Height = 150;
+            }
+            createdControls.Add(new EntityEditorControl
+            {
+                Label = label,
+                Control = textbox,
+                Priority = createdControls.Count + 1,
+            });
+            return textbox;
+        }
 
         protected ComboBox ComboBox<TProperty,TComboItem>(Expression<Func<TEntity,TProperty>> selector,string title,List<TComboItem> items,
             Expression<Func<TComboItem,string>> displaySelector, Expression<Func<TComboItem, TProperty>> ValueSelector)

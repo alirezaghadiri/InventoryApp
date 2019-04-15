@@ -16,6 +16,25 @@ namespace InventoryApp.WinUi.view.Corporation
         }
         protected override void OnLoad(EventArgs e)
         {
+            AddAction("افزودن", btn =>
+            {
+                var result = viewEngine.ViewInForm<view.Corporation.Editor>(null, true);
+                if (result.DialogResult == DialogResult.OK)
+                {
+                    ICorporation corporation = new CorporationRepository();
+                    if (corporation.Add(result.Entity))
+                    {
+                        MessageBox.Show("شرکت با موفقیت ثبت شد", "پیام سیستم");
+                        grid.AddItem(result.Entity);
+                        grid.ResetBindings();
+                    }
+                    else
+                    {
+                        MessageBox.Show("مشکل در ثبت شرکت به وجود آمد", "پیام سیستم");
+                    }
+                }
+                
+            });
             AddAction("ویرایش", btn =>
             {
                 var result = viewEngine.ViewInForm<view.Corporation.Editor>(editor =>
@@ -44,16 +63,22 @@ namespace InventoryApp.WinUi.view.Corporation
                 if (MessageBox.Show("آیا میخواهید حذف کنید ؟", "پیام سیستم", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     ICorporation corporation = new CorporationRepository();
-                    if (corporation.Delete(grid.CurrentItem.CorporationId))
-                    {
-                      
-                        MessageBox.Show("شرکت با موفقیت حذف شد", "پیام سیستم");
-                        grid.RemoveCurrent();
-                        grid.ResetBindings();
-                    }
+                    int dn = corporation.CanDelete(grid.CurrentItem.CorporationId);
+                    if (dn != 0)
+                        MessageBox.Show("این مورد به علت وابستگی به" + dn + "مواردامکان پاک شدن ندارد", "پیام سیستم");
                     else
                     {
-                        MessageBox.Show("مشکل در حذف شرکت به وجود آمد", "پیام سیستم");
+                        if (corporation.Delete(grid.CurrentItem.CorporationId))
+                        {
+
+                            MessageBox.Show("شرکت با موفقیت حذف شد", "پیام سیستم");
+                            grid.RemoveCurrent();
+                            grid.ResetBindings();
+                        }
+                        else
+                        {
+                            MessageBox.Show("مشکل در حذف شرکت به وجود آمد", "پیام سیستم");
+                        }
                     }
                 }
                 
@@ -65,7 +90,6 @@ namespace InventoryApp.WinUi.view.Corporation
             grid.AddTextBoxColumn(p => p.Address, "نشانی");
             grid.AddTextBoxColumn(p => p.Description, "توضیحات");
             grid.SetDataSource(Corps.GetAll());
-
             base.OnLoad(e);
         }
     }

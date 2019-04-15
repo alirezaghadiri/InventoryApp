@@ -10,5 +10,6 @@ namespace InventoryApp.RepositortAbstracts
         bool Delete(int id);
         ProductUnit Find(int id);
         ICollection<ProductUnit> GetAll();
+        int CanDelete(int id);
     }
 }

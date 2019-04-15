@@ -16,6 +16,24 @@ namespace InventoryApp.WinUi.view.Inventory
         }
         protected override void OnLoad(EventArgs e)
         {
+            AddAction("افزودن",btn=> 
+            {
+                var result = viewEngine.ViewInForm<view.Inventory.Editor>(null, true);
+                if (result.DialogResult == DialogResult.OK)
+                {
+                    IInventory inventory = new InventoryRepository();
+                    if (inventory.Add(result.Entity))
+                    {
+                        MessageBox.Show("انبار با موفقیت ثبت شد", "پیام سیستم");
+                        grid.AddItem(result.Entity);
+                        grid.ResetBindings();
+                    }
+                    else
+                    {
+                        MessageBox.Show("مشکل در ثبت انبار به وجود آمد", "پیام سیستم");
+                    }
+                }
+            });
             AddAction("ویرایش", btn =>
             {
                 var result = viewEngine.ViewInForm<view.Inventory.Editor>(editor =>
@@ -29,12 +47,13 @@ namespace InventoryApp.WinUi.view.Inventory
                     if (inventory.Update(result.Entity))
                     {
                         MessageBox.Show("انبار با موفقیت ویرایش شد", "پیام سیستم");
+                        grid.ResetBindings();
                     }
                     else
                     {
                         MessageBox.Show("مشکل در ویرایش انبار به وجود آمد", "پیام سیستم");
                     }
-                    grid.ResetBindings();
+                    
                 }
             });
             AddAction("حذف", btn =>
@@ -44,16 +63,22 @@ namespace InventoryApp.WinUi.view.Inventory
                 if (MessageBox.Show("آیا میخواهید حذف کنید ؟", "پیام سیستم", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     IInventory inventory = new InventoryRepository();
-                    if (inventory.Delete(grid.CurrentItem.CorporationId))
-                    {
-
-                        MessageBox.Show("انبار با موفقیت حذف شد", "پیام سیستم");
-                        grid.RemoveCurrent();
-                        grid.ResetBindings();
-                    }
+                    int dn = inventory.CanDelete(grid.CurrentItem.InventoryId);
+                    if (dn != 0)
+                        MessageBox.Show("این مورد به علت وابستگی به" + dn + "مواردامکان پاک شدن ندارد", "پیام سیستم");
                     else
                     {
-                        MessageBox.Show("مشکل در حذف انبار به وجود آمد", "پیام سیستم");
+                        if (inventory.Delete(grid.CurrentItem.InventoryId))
+                        {
+
+                            MessageBox.Show("انبار با موفقیت حذف شد", "پیام سیستم");
+                            grid.RemoveCurrent();
+                            grid.ResetBindings();
+                        }
+                        else
+                        {
+                            MessageBox.Show("مشکل در حذف انبار به وجود آمد", "پیام سیستم");
+                        }
                     }
                 }
             });

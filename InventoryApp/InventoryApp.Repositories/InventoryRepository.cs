@@ -19,8 +19,7 @@ namespace InventoryApp.Repositories
             {
                 _Inventory.CreatedDate = DateTime.Now;
                 _Inventory.CreatedByUserId = DatabaseTools.GetUserID;
-                contaxt.Inventories
-                .Add(_Inventory);
+                contaxt.Inventories.Add(_Inventory);
                 contaxt.SaveChanges();
                 return true;
             }
@@ -33,8 +32,7 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var _contaxt = contaxt.Inventories
-                .Where(p => p.InventoryId == id).FirstOrDefault();
+                var _contaxt = contaxt.Inventories.First(p => p.InventoryId == id);
                 _contaxt.Deleted = true;
                 _contaxt.DeletedDate = DateTime.Now;
                 _contaxt.DeletedByUserId = DatabaseTools.GetUserID;
@@ -78,6 +76,13 @@ namespace InventoryApp.Repositories
         {
             return contaxt.Inventories
             .Where(p => p.Deleted == false).ToList();
+        }
+        public int CanDelete(int ID)
+        {
+            var count = contaxt.ProductCategorys.Where(p => p.Deleted == false & p.InventoryId == ID).Count();
+            count+=contaxt.InventoryOutsHeaders.Where(p => p.Deleted == false & p.InventoryId == ID).Count();
+            count += contaxt.InventoryInsHeaders.Where(p => p.Deleted == false & p.InventoryId == ID).Count();
+            return count;
         }
     }
 }

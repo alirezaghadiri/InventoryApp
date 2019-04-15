@@ -6,6 +6,8 @@ namespace InventoryApp.Entities
     public class InventoryOutsHeader
     {
         public int InventoryOutsHeaderId { get; set; }
+        public int InventoryId { get; set; }
+        public int TypeId { get; set; }
         public DateTime Date { get; set; }
 
         //Accepet
@@ -38,10 +40,8 @@ namespace InventoryApp.Entities
         {
             var map = new EntityTypeConfiguration<InventoryOutsHeader>();
 
-            map.HasRequired(I => I.Inv).WithMany(C => C.InventoryOutsHeaders)
-                .Map(_map => _map.MapKey("InventoryId"));
-            map.HasRequired(I => I.type).WithMany(C => C.InventoryOutsHeaders)
-               .Map(_map => _map.MapKey("TypeId"));
+            map.HasRequired(I => I.Inv).WithMany(C => C.InventoryOutsHeaders).HasForeignKey(p => p.InventoryId);
+            map.HasRequired(I => I.type).WithMany(C => C.InventoryOutsHeaders).HasForeignKey(p => p.TypeId);
             map.HasOptional(C => C.DeletedUser).WithMany(U => U.DeletedInventoryOutsHeader).HasForeignKey(I => I.AcceptedByUserId);
             map.HasOptional(C => C.DeletedUser).WithMany(U => U.DeletedInventoryOutsHeader).HasForeignKey(I => I.DeletedByUserId);
             map.HasRequired(C => C.CreatedUser).WithMany(U => U.CreatedInventoryOutsHeader).HasForeignKey(I => I.CreatedByUserId).WillCascadeOnDelete(false);

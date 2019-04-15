@@ -79,5 +79,10 @@ namespace InventoryApp.Repositories
             return contaxt.ProductUnits
             .Where(p => p.Deleted == false).ToList();
         }
+
+        public int CanDelete(int id)
+        {
+            return contaxt.Products.Where(p => p.Deleted == false & p.ProductUnitId == id).Count();
+        }
     }
 }

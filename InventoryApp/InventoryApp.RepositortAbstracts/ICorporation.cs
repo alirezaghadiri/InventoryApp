@@ -10,5 +10,7 @@ namespace InventoryApp.RepositortAbstracts
         bool Delete(int id);
         Corporation Find(int id);
         ICollection<Corporation> GetAll();
+        int CanDelete(int Id);
+        
     }
 }

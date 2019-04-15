@@ -12,8 +12,20 @@ namespace InventoryApp.WinUi.IOC
     {
         public TypesResgistry()
         {
+            For<IUser>().Use<UserRepository>();
+            For<IRole>().Use<RoleRepository>();
             For<ICorporation>().Use<CorporationRepository>();
+            For<IInventory>().Use<InventoryRepository>();
             For<IProductUnit>().Use<ProductUnitRepository>();
+            For<IProduct>().Use<ProductRepository>();
+            For<IInventoryInsDeatil>().Use<InventoryInsDeatilRepository>();
+            For<IInventoryInsType>().Use<InventoryInsTypeRepository>();
+            For<IInventoryInsHeader>().Use<InventoryInsHeaderRepository>();
+            For<IInventoryOutsDeatil>().Use<InventoryOutsDeatilRepository>();
+            For<IInventoryOutsType>().Use<InventoryOutsTypeRepository>();
+            For<IInventoryOutsHeader>().Use<InventoryOutsHeaderRepository>();
+            For<IProductCategory>().Use<ProductCategoryRepository>();
+            For<IProductParameter>().Use<ProductParameterRepository>();
         }
     }
 }

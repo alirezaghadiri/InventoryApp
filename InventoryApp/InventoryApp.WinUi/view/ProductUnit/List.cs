@@ -9,7 +9,7 @@ using InventoryApp.Repositories;
 
 namespace InventoryApp.WinUi.view.ProductUnit
 {
-    class List : Framwork.ViewBase
+    public class List : Framwork.ViewBase
     {
         RepositortAbstracts.IProductUnit ProUnit;
         Framwork.GirdControl<Entities.ProductUnit> grid;
@@ -20,6 +20,24 @@ namespace InventoryApp.WinUi.view.ProductUnit
         }
         protected override void OnLoad(EventArgs e)
         {
+            AddAction("افزودن", btn =>
+            {
+                var result = viewEngine.ViewInForm<view.ProductUnit.Editor>(null, true);
+                if (result.DialogResult == DialogResult.OK)
+                {
+                    IProductUnit productUnit = new ProductUnitRepository();
+                    if (productUnit.Add(result.Entity))
+                    {
+                        MessageBox.Show("واحد با موفقیت ثبت شد", "پیام سیستم");
+                        grid.AddItem(result.Entity);
+                        grid.ResetBindings();
+                    }
+                    else
+                    {
+                        MessageBox.Show("مشکل در ثبت واحد به وجود آمد", "پیام سیستم");
+                    }
+                }
+            });
             AddAction("ویرایش", btn =>
             {
                 var result = viewEngine.ViewInForm<view.ProductUnit.Editor>(editor =>
@@ -33,12 +51,13 @@ namespace InventoryApp.WinUi.view.ProductUnit
                     if (productUnit.Update(result.Entity))
                     {
                         MessageBox.Show("واحد با موفقیت ویرایش شد", "پیام سیستم");
+                        grid.ResetBindings();
                     }
                     else
                     {
                         MessageBox.Show("مشکل در ویرایش واحد به وجود آمد", "پیام سیستم");
                     }
-                    grid.ResetBindings();
+                    
                 }
             });
             AddAction("حذف", btn =>
@@ -48,18 +67,23 @@ namespace InventoryApp.WinUi.view.ProductUnit
                 if (MessageBox.Show("آیا میخواهید حذف کنید ؟", "پیام سیستم", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     IProductUnit productUnit = new ProductUnitRepository();
-                    if (productUnit.Delete(grid.CurrentItem.ProductUnitId))
-                    {
-                        MessageBox.Show("واحد با موفقیت حذف شد", "پیام سیستم");
-                        grid.RemoveCurrent();
-                        grid.ResetBindings();
-                    }
+                    int dn = productUnit.CanDelete(grid.CurrentItem.ProductUnitId);
+                    if (dn != 0)
+                        MessageBox.Show("این مورد به علت وابستگی به" + dn + "مواردامکان پاک شدن ندارد", "پیام سیستم");
                     else
                     {
-                        MessageBox.Show("مشکل در حذف واحد به وجود آمد", "پیام سیستم");
+                        if (productUnit.Delete(grid.CurrentItem.ProductUnitId))
+                        {
+                            MessageBox.Show("واحد با موفقیت حذف شد", "پیام سیستم");
+                            grid.RemoveCurrent();
+                            grid.ResetBindings();
+                        }
+                        else
+                        {
+                            MessageBox.Show("مشکل در حذف واحد به وجود آمد", "پیام سیستم");
+                        }
                     }
                 }
-               
             });
             grid = new Framwork.GirdControl<Entities.ProductUnit>(this);
             grid.AddTextBoxColumn(p => p.ProductUnitId, "شناسه");

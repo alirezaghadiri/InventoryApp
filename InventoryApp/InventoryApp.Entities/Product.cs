@@ -9,6 +9,8 @@ namespace InventoryApp.Entities
     public class Product
     {
         public int ProductId { get; set; }
+        public int ProductCategoryId { get; set; }
+        public int ProductUnitId { get; set; }
         public int Code { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -31,6 +33,7 @@ namespace InventoryApp.Entities
         public int? ChangedByUserId { get; set; }
 
         public virtual ProductCategory Category { get; set; }
+        public virtual ProductUnit Unit { get; set; }
         public ICollection<ProductParameterValue> ProductParameterValues { get; set; }
         public ICollection<InventoryInsDeatil> InventoryInsDeatils { get; set; }
         public ICollection<InventoryOutsDeatil> InventoryOutsDeatils { get; set; }
@@ -42,8 +45,8 @@ namespace InventoryApp.Entities
             map.Property(P => P.Code)
                 .HasColumnAnnotation("Index",
                 new IndexAnnotation(new IndexAttribute("Ix_Unique") { IsUnique = true }));
-            map.HasRequired(P => P.Category).WithMany(Pro => Pro.Products)
-                .Map(_map => _map.MapKey("ProductCategoryId"));
+            map.HasRequired(P => P.Category).WithMany(Pro => Pro.Products).HasForeignKey(p => p.ProductCategoryId);
+            map.HasRequired(P => P.Unit).WithMany(Pro => Pro.Products).HasForeignKey(p => p.ProductUnitId);
             map.HasOptional(C => C.DeletedUser).WithMany(U => U.DeletedProduct).HasForeignKey(P => P.DeletedByUserId);
             map.HasRequired(C => C.CreatedUser).WithMany(U => U.CreatedProduct).HasForeignKey(P => P.CreatedByUserId).WillCascadeOnDelete(false);
             map.HasOptional(C => C.ChangedUser).WithMany(U => U.ChangedProduct).HasForeignKey(P => P.ChangedByUserId);
