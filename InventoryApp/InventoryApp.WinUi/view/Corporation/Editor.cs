@@ -8,10 +8,8 @@ namespace InventoryApp.WinUi.view.Corporation
 {
     public class Editor : Framwork.EntityEditor<Entities.Corporation>
     {
-        RepositortAbstracts.ICorporation Corps;
-        public Editor(RepositortAbstracts.ICorporation CorporationRepository)
+        public Editor()
         {
-            this.Corps = CorporationRepository;
             if (Entity.CorporationId == 0)
                 ViewTitle = "تعریف شرکت";
             else

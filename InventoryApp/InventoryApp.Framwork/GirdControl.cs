@@ -13,6 +13,7 @@ namespace InventoryApp.Framwork
     {
         DataGridView grid;
         BindingSource bindingSource;
+
         public GirdControl(Control container)
         {
             grid = new DataGridView();

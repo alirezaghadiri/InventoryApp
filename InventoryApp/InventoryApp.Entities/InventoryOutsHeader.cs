@@ -8,6 +8,8 @@ namespace InventoryApp.Entities
         public int InventoryOutsHeaderId { get; set; }
         public int InventoryId { get; set; }
         public int TypeId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
         public DateTime Date { get; set; }
 
         //Accepet

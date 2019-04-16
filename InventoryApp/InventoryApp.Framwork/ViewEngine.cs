@@ -15,6 +15,7 @@ namespace InventoryApp.Framwork
             this.TypesRegistry = TypesRegistry; 
         }
         Dictionary<string, Form> openForm = new Dictionary<string, Form>();
+       
         public T ViewInForm<T>(Action<T>initialzer=null, bool DisplayIsDialog = false) where T : ViewBase
         {
             var container = new StructureMap.Container(TypesRegistry);
@@ -49,6 +50,7 @@ namespace InventoryApp.Framwork
             return (T)viewInstance;
         }
        
+
         internal void CloseView(ViewBase viewBase, DialogResult? dialogResult = null)
         {
             if (openForm.ContainsKey(viewBase.ViewIdentifier))

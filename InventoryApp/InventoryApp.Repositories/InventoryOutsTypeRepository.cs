@@ -79,5 +79,9 @@ namespace InventoryApp.Repositories
             return contaxt.InventoryOutsTypes
             .Where(p => p.Deleted == false).ToList();
         }
+        public int CanDelete(int Id)
+        {
+            return contaxt.InventoryOutsHeaders.Where(p => p.Deleted == false & p.TypeId == Id).Count();
+        }
     }
 }
