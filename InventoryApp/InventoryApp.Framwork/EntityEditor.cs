@@ -8,17 +8,18 @@ using System.Windows.Forms;
 
 namespace InventoryApp.Framwork
 {
-    public class EntityEditor<TEntity>:ViewBase where TEntity:class,new()
+    public class EntityEditor<TEntity> : ViewBase where TEntity : class, new()
     {
-        public List<EntityEditorControl> createdControls = new List<EntityEditorControl>(); 
+        public List<EntityEditorControl> createdControls = new List<EntityEditorControl>();
         public TEntity Entity { get; set; }
-        
+
         public TEntity EntityCopy;
         public EntityEditor()
         {
             Entity = new TEntity();
             AddAction("تایید", btn => CloseView(DialogResult.OK));
-            AddAction("صرفنظر", btn => {
+            AddAction("صرفنظر", btn =>
+            {
                 var entityProperty = typeof(TEntity).GetProperties();
                 CloseView(DialogResult.Cancel);
                 foreach (var property in entityProperty)
@@ -37,7 +38,7 @@ namespace InventoryApp.Framwork
             };
 
         }
-        protected TextBox TextBox<Tproperty>(Expression<Func<TEntity,Tproperty>> selector,string title,bool multiline=false)
+        protected TextBox TextBox<Tproperty>(Expression<Func<TEntity, Tproperty>> selector, string title, bool multiline = false)
         {
             var expressionHandler = new ExpressionHandler();
             var label = new Label();
@@ -63,11 +64,13 @@ namespace InventoryApp.Framwork
             });
             return textbox;
         }
-        protected TextBox TextBox( string title, bool multiline = false)
+        protected TextBox TextBox(string title, object tag = null, bool multiline = false)
         {
             var label = new Label();
             label.Text = title;
+            label.Tag = tag;
             var textbox = new TextBox();
+            textbox.Tag = tag;
             this.Controls.Add(label);
             this.Controls.Add(textbox);
             textbox.Left = 20;
@@ -88,8 +91,8 @@ namespace InventoryApp.Framwork
             return textbox;
         }
 
-        protected ComboBox ComboBox<TProperty,TComboItem>(Expression<Func<TEntity,TProperty>> selector,string title,List<TComboItem> items,
-            Expression<Func<TComboItem,string>> displaySelector, Expression<Func<TComboItem, TProperty>> ValueSelector)
+        protected ComboBox ComboBox<TProperty, TComboItem>(Expression<Func<TEntity, TProperty>> selector, string title, List<TComboItem> items,
+            Expression<Func<TComboItem, string>> displaySelector, Expression<Func<TComboItem, TProperty>> ValueSelector)
         {
             var expressionHandler = new ExpressionHandler();
             var label = new Label();
@@ -107,23 +110,23 @@ namespace InventoryApp.Framwork
                 Label = label,
                 Control = combobox,
                 Priority = createdControls.Count + 1,
-        });
-            return combobox ;
+            });
+            return combobox;
         }
-        protected ComboBox TrueFalseComboBox(Expression<Func<TEntity,bool>> selector, string title)
+        protected ComboBox TrueFalseComboBox(Expression<Func<TEntity, bool>> selector, string title)
         {
             List<ComboItem<bool>> items = new List<ComboItem<bool>>();
             items.Add(new ComboItem<bool> { Display = "بله", Value = true });
-            items.Add(new ComboItem<bool> { Display = "خیر", Value = false});
+            items.Add(new ComboItem<bool> { Display = "خیر", Value = false });
             return ComboBox(selector, title, items, item => item.Display, item => item.Value);
         }
 
         protected void AdjustControls()
         {
-            ((Form)this.Parent).Width=800;
+            ((Form)this.Parent).Width = 800;
             var currentTop = 10;
             var maximumlabalwith = createdControls.Select(c => c.Label).Max(l => l.Width);
-            foreach (var item in createdControls.OrderBy(c=>c.Priority))
+            foreach (var item in createdControls.OrderBy(c => c.Priority))
             {
                 item.Label.Left = (this.Width - item.Label.Width) - 10;
                 item.Label.Top = (currentTop + 3);
@@ -136,14 +139,23 @@ namespace InventoryApp.Framwork
             {
                 createdControls.OrderBy(c => c.Priority).First().Control.Focus();
             };
-           
+
             ((Form)this.Parent).Height = currentTop + 80;
+        }
+        protected void RemoveControls(Control control)
+        {
+            var t=createdControls.Where(p => p.Control.Tag== control.Tag).ToList();
+            foreach (var item in t)
+            {
+                createdControls.Remove(item);
+            }
+            
         }
     }
     public class EntityEditorControl
     {
         public Label Label { get; set; }
-        public Control Control{get;set;}
+        public Control Control { get; set; }
         public int Priority { get; set; }
     }
 

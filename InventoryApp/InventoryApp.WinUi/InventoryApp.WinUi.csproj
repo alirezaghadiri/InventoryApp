@@ -105,6 +105,7 @@
     <Compile Include="view\Product\List.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="view\Product\ParamEditor.cs" />
     <Compile Include="view\systemform\DBconnectionSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
