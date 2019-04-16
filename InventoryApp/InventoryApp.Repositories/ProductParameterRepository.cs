@@ -24,7 +24,7 @@ namespace InventoryApp.Repositories
                 contaxt.SaveChanges();
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
@@ -74,10 +74,22 @@ namespace InventoryApp.Repositories
                 return false;
             }
         }
-        public ICollection<ProductParameter> GetAll()
+        public ICollection<ProductParameter> GetAll(int ProductCategoryId = 0)
         {
-            return contaxt.ProductParameters
-            .Where(p => p.Deleted == false).ToList();
+            if(ProductCategoryId == 0)
+            {
+                return contaxt.ProductParameters.Where(p => p.Deleted == false).ToList();
+            }
+            else
+            {
+                return contaxt.ProductParameters.Where(p => p.Deleted == false & p.ProductCategoryId== ProductCategoryId).ToList();
+            }
+            
+        }
+
+        public int CanDelete(int Id)
+        {
+            return contaxt.ProductParsmeterValues.Where(p => p.ProductParameterId == Id).Count();
         }
     }
 }

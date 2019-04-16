@@ -9,6 +9,7 @@ namespace InventoryApp.RepositortAbstracts
         bool Update(ProductParameter _ProductParameter);
         bool Delete(int id);
         ProductParameter Find(int id);
-        ICollection<ProductParameter> GetAll();
+        ICollection<ProductParameter> GetAll(int ProductCategoryId=0);
+        int CanDelete(int Id);
     }
 }

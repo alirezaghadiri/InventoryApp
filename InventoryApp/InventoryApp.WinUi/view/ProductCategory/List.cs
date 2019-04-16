@@ -26,7 +26,8 @@ namespace InventoryApp.WinUi.view.Category
                  var view = viewEngine.ViewInForm<view.ProductCategory.Editor>(editor =>
                  {
                      if (treeControl.SelectedObject != null)
-                         editor.Entity = treeControl.SelectedObject;
+                         if (MessageBox.Show("ایا می خواهید به ریشه اضاف کنید", "پیام سیستم", MessageBoxButtons.YesNo) == DialogResult.No)
+                             editor.ParentCategory = treeControl.SelectedObject;
                  }, true);
                  if (view.DialogResult == DialogResult.OK)
                  {
@@ -46,7 +47,10 @@ namespace InventoryApp.WinUi.view.Category
             {
                 var result = viewEngine.ViewInForm<view.ProductCategory.Editor>(editor =>
                 {
-                    editor.Entity = treeControl.SelectedObject;
+                    if (treeControl.SelectedObject != null)
+                        editor.Entity = treeControl.SelectedObject;
+                    else
+                        return;
 
                 }, true);
                 if (result.DialogResult == DialogResult.OK)
@@ -76,15 +80,25 @@ namespace InventoryApp.WinUi.view.Category
                     {
                         if (CatRep.Delete(treeControl.SelectedObject.ProductCategoryId))
                         {
-                            MessageBox.Show("انبار با موفقیت حذف شد", "پیام سیستم");
+                            MessageBox.Show("دسته بندی با موفقیت حذف شد", "پیام سیستم");
                             treeControl.InitRoots();
                         }
                         else
                         {
-                            MessageBox.Show("مشکل در حذف انبار به وجود آمد", "پیام سیستم");
+                            MessageBox.Show("مشکل در دسته بندی به وجود آمد", "پیام سیستم");
                         }
                     }
                 }
+            });
+            AddAction(" پارامتر ها", btn =>
+            {
+                if (treeControl.SelectedObject == null)
+                    return;
+                viewEngine.ViewInForm<view.ProductParameter.List>(editor =>
+                {
+                    editor.ParentCategoryId = treeControl.SelectedObject.ProductCategoryId;
+
+                }, true);
             });
 
             treeControl = new TreeControl<Entities.ProductCategory>(this);

@@ -46,7 +46,7 @@ namespace InventoryApp.DataLayer
         }
     }
 
-    public class DbInitializer : CreateDatabaseIfNotExists<InventoryDBContext>
+    public class DbInitializer : DropCreateDatabaseIfModelChanges<InventoryDBContext>
     {
         protected override void Seed(InventoryDBContext context)
         {
@@ -71,4 +71,5 @@ namespace InventoryApp.DataLayer
             base.Seed(context);
         }
     }
+   
 }

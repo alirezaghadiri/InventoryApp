@@ -5,6 +5,7 @@ namespace InventoryApp.Entities
     public class InventoryOutsDeatil
     {
         public int InventoryOutsDeatilId { get; set; }
+        public int ProductId { get; set; }
 
         public decimal Amount { get; set; }
 
@@ -13,8 +14,7 @@ namespace InventoryApp.Entities
         public static EntityTypeConfiguration<InventoryOutsDeatil> Map()
         {
             var map = new EntityTypeConfiguration<InventoryOutsDeatil>();
-            map.HasRequired(I => I.prodocut).WithMany(C => C.InventoryOutsDeatils)
-                .Map(_map => _map.MapKey("ProductId"));
+            map.HasRequired(I => I.prodocut).WithMany(C => C.InventoryOutsDeatils).HasForeignKey(p => p.ProductId);
             return map;
         }
     }

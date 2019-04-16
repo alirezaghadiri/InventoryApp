@@ -87,10 +87,22 @@
     <Compile Include="view\Inventory\List.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="view\ProductParameter\Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\ProductParameter\List.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="view\ProductUnit\Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="view\ProductUnit\List.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\Product\Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\Product\List.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="view\systemform\DBconnectionSettingsForm.cs">
@@ -165,6 +177,7 @@
       <Name>InventoryApp.RepositortAbstracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

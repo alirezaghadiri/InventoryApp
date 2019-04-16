@@ -26,8 +26,11 @@ namespace InventoryApp.WinUi
             menuBaseInfo = menu.addmenu("انبار", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Inventory.List>(null, true));
 
             var menuProdocut = menu.addmenu("محصولات", null, Keys.None, null);
+            menuProdocut.addmenu("محصولات", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Product.List>(null, true));
+            menuProdocut.addSeparator();
             menuProdocut.addmenu("واحداندازه گیری", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.ProductUnit.List>(null, true));
             menuProdocut.addmenu("دسته بندی محصولات", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Category.List>(null, true));
+
 
             menu.addSeparator();
             menu.addmenu("خروج", null, Keys.None, (obj, e) => Application.Exit());
