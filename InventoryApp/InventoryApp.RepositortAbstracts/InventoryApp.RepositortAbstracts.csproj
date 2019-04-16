@@ -51,6 +51,7 @@
     <Compile Include="IProduct.cs" />
     <Compile Include="IProductCategory.cs" />
     <Compile Include="IProductParameter.cs" />
+    <Compile Include="IProductParameterValue.cs" />
     <Compile Include="IProductUnit.cs" />
     <Compile Include="IRole.cs" />
     <Compile Include="IUser.cs" />

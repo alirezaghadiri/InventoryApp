@@ -19,8 +19,7 @@ namespace InventoryApp.Repositories
             {
                 _Product.CreatedDate = DateTime.Now;
                 _Product.CreatedByUserId = DatabaseTools.GetUserID;
-                contaxt.Products
-                .Add(_Product);
+                contaxt.Products.Add(_Product);
                 contaxt.SaveChanges();
                 return true;
             }
@@ -85,7 +84,6 @@ namespace InventoryApp.Repositories
         {
             var count = contaxt.InventoryInsDeatils.Where(p =>p.ProductId==Id).Count();
             count += contaxt.InventoryOutsDeatils.Where(p => p.ProductId == Id).Count();
-            count += contaxt.ProductParsmeterValues.Where(p => p.ProductId == Id).Count();
             return count;
         }
     }

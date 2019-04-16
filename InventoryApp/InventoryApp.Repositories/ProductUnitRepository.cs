@@ -19,8 +19,7 @@ namespace InventoryApp.Repositories
             {
                 _ProductUnit.CreatedDate = DateTime.Now;
                 _ProductUnit.CreatedByUserId = DatabaseTools.GetUserID;
-                contaxt.ProductUnits
-                .Add(_ProductUnit);
+                contaxt.ProductUnits.Add(_ProductUnit);
                 contaxt.SaveChanges();
                 return true;
             }

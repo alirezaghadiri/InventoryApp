@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace InventoryApp.WinUi.view.Product
 {
-    public class List :Framwork.ViewBase
+    public class List : Framwork.ViewBase
     {
         RepositortAbstracts.IProduct pro;
+        RepositortAbstracts.IProductParameterValue pvalue;
         public int? ProductCategoryId { get; set; }
         Framwork.GirdControl<Entities.Product> grid;
 
-        public List(RepositortAbstracts.IProduct pro)
+        public List(RepositortAbstracts.IProduct pro, RepositortAbstracts.IProductParameterValue pvalue)
         {
             this.pro = pro;
+            this.pvalue = pvalue;
             AddAction("افزودن", btn =>
             {
                 var result = viewEngine.ViewInForm<view.Product.Editor>(null, true);
@@ -23,13 +25,21 @@ namespace InventoryApp.WinUi.view.Product
                 {
                     if (pro.Add(result.Entity))
                     {
-                        MessageBox.Show("شرکت با موفقیت ثبت شد", "پیام سیستم");
-                        grid.AddItem(result.Entity);
-                        grid.ResetBindings();
+                        if (Addparamervalue(result.parameterControls, result.Entity.ProductId))
+                        {
+                            MessageBox.Show("محصول با موفقیت ثبت شد", "پیام سیستم");
+                            grid.AddItem(result.Entity);
+                            grid.ResetBindings();
+                        }
+                        else
+                        {
+                            MessageBox.Show("مشکل در محصول  به وجود آمد", "پیام سیستم");
+                        }
                     }
+
                     else
                     {
-                        MessageBox.Show("مشکل در ثبت شرکت به وجود آمد", "پیام سیستم");
+                        MessageBox.Show("مشکل در محصول  به وجود آمد", "پیام سیستم");
                     }
                 }
 
@@ -43,15 +53,23 @@ namespace InventoryApp.WinUi.view.Product
                 }, true);
                 if (result.DialogResult == DialogResult.OK)
                 {
-                    if (pro.Update(result.Entity))
+                    if (Updateparamervalue(result.parameterControls, result.Entity.ProductId))
                     {
-                        MessageBox.Show("محصول با موفقیت ویرایش شد", "پیام سیستم");
+                        if (pro.Update(result.Entity))
+                        {
+                            MessageBox.Show("محصول با موفقیت ویرایش شد", "پیام سیستم");
+                        }
+                        else
+                        {
+                            MessageBox.Show("مشکل در ویرایش محصول به وجود آمد", "پیام سیستم");
+                        }
+                        grid.ResetBindings();
                     }
+
                     else
                     {
                         MessageBox.Show("مشکل در ویرایش محصول به وجود آمد", "پیام سیستم");
                     }
-                    grid.ResetBindings();
                 }
             });
             AddAction("حذف", btn =>
@@ -65,27 +83,34 @@ namespace InventoryApp.WinUi.view.Product
                         MessageBox.Show("این مورد به علت وابستگی به" + dn + "مواردامکان پاک شدن ندارد", "پیام سیستم");
                     else
                     {
-                        if (pro.Delete(grid.CurrentItem.ProductId))
+                        if (pvalue.Delete(grid.CurrentItem.ProductId))
                         {
+                            if (pro.Delete(grid.CurrentItem.ProductId))
+                            {
 
-                            MessageBox.Show("محصول با موفقیت حذف شد", "پیام سیستم");
-                            grid.RemoveCurrent();
-                            grid.ResetBindings();
-                        }
-                        else
-                        {
-                            MessageBox.Show("محصول در حذف شرکت به وجود آمد", "پیام سیستم");
+                                MessageBox.Show("محصول با موفقیت حذف شد", "پیام سیستم");
+                                grid.RemoveCurrent();
+                                grid.ResetBindings();
+                            }
+                            else
+                            {
+                                MessageBox.Show("محصول در حذف شرکت به وجود آمد", "پیام سیستم");
+                            }
                         }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("محصول در حذف شرکت به وجود آمد", "پیام سیستم");
                 }
 
             });
         }
         protected override void OnLoad(EventArgs e)
         {
-            grid=new Framwork.GirdControl<Entities.Product>(this);
+            grid = new Framwork.GirdControl<Entities.Product>(this);
             grid.AddTextBoxColumn(p => p.Code, "کد");
-           
+
             grid.AddTextBoxColumn(p => p.Title, "عنوان محصول");
 
             if (ProductCategoryId.HasValue)
@@ -98,6 +123,49 @@ namespace InventoryApp.WinUi.view.Product
                 grid.SetDataSource(pro.GetAll());
             }
             base.OnLoad(e);
+        }
+        public bool Addparamervalue(Dictionary<Entities.ProductParameter, TextBox> param, int id)
+        {
+            try
+            {
+                pvalue.Delete(id);
+                foreach (var item in param)
+                {
+                    pvalue.Add(new Entities.ProductParameterValue
+                    {
+                        ProductId = id,
+                        ProductParameterId = item.Key.ProductParameterId,
+                        Value = item.Value.Text,
+                    });
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool Updateparamervalue(Dictionary<Entities.ProductParameter, TextBox> param, int id)
+        {
+            try
+            {
+                foreach (var item in param)
+                {
+                    pvalue.Update(new Entities.ProductParameterValue
+                    {
+                        ProductId = id,
+                        ProductParameterId = item.Key.ProductParameterId,
+                        Value = item.Value.Text,
+                    });
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

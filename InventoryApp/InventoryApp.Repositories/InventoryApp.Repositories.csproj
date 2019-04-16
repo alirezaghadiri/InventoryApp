@@ -59,6 +59,7 @@
     <Compile Include="InventoryRepository.cs" />
     <Compile Include="ProductCategoryRepository.cs" />
     <Compile Include="ProductParameterRepository.cs" />
+    <Compile Include="ProductParameterValueRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="ProductUnitRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

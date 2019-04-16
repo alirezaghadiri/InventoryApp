@@ -26,6 +26,7 @@ namespace InventoryApp.WinUi.IOC
             For<IInventoryOutsHeader>().Use<InventoryOutsHeaderRepository>();
             For<IProductCategory>().Use<ProductCategoryRepository>();
             For<IProductParameter>().Use<ProductParameterRepository>();
+            For<IProductParameterValue>().Use<ProductParameterValueRepository>();
         }
     }
 }
