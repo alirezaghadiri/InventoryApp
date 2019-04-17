@@ -91,5 +91,33 @@ namespace InventoryApp.Repositories
         {
             return contaxt.ProductCategorys.First(p => p.ProductCategoryId == CategoryId).Capacity;
         }
+
+        public decimal GetAmount(int id)
+        {
+            try
+            {
+                InventoryInsDeatilRepository invd = new InventoryInsDeatilRepository();
+                object objI = invd.GetAmount(id);
+                decimal Iamount = 0;
+                decimal Oamount = 0;
+
+                if (objI is decimal)
+                {
+                    Iamount = Convert.ToDecimal(objI);
+                    InventoryOutsDeatilRepository outd = new InventoryOutsDeatilRepository();
+                    object objO = outd.GetAmount(id);
+                    if (objO is decimal)
+                    {
+                        Oamount = Convert.ToDecimal(objO);
+                    }
+                }
+                return Iamount - Oamount;
+            }
+            catch 
+            {
+                return 0; 
+            }
+            
+        }
     }
 }

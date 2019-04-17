@@ -43,6 +43,12 @@ namespace InventoryApp.WinUi
             menu1.addmenu("ورود", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryInsHeader.List>(null, true));
 
             menu1.addmenu("خروج", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryOutsHeader.List>(null, true));
+
+            var menu2 = addmenu("گزارش", null, Keys.None, null);
+            menu2.addmenu("انبار", null, Keys.None,(obj,e)=>{
+                view.Inventory.InventoryReport ir = new view.Inventory.InventoryReport();
+                ir.ShowDialog();
+            });
         }
 
         private void MainForm_Load(object sender, EventArgs e)

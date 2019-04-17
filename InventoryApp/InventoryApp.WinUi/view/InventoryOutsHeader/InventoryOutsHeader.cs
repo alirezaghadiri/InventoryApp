@@ -142,8 +142,6 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
                 MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
         }
 
-
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             grid.RemoveCurrent();

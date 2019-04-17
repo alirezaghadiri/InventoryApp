@@ -102,6 +102,12 @@
     <Compile Include="view\InventoryOutsType\List.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="view\Inventory\InventoryReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\Inventory\InventoryReport.Designer.cs">
+      <DependentUpon>InventoryReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\ProductCategory\Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -176,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\InventoryOutsHeader\InventoryOutsHeader.resx">
       <DependentUpon>InventoryOutsHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\Inventory\InventoryReport.resx">
+      <DependentUpon>InventoryReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\systemform\DBconnectionSettingsForm.resx">
       <DependentUpon>DBconnectionSettingsForm.cs</DependentUpon>

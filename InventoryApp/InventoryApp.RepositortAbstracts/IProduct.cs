@@ -12,5 +12,7 @@ namespace InventoryApp.RepositortAbstracts
         ICollection<Product> GetAll(int PoroductCategoryId=0);
         int CanDelete(int Id);
         decimal Capacity(int CategoryId);
+        decimal GetAmount(int id);
+
     }
 }
