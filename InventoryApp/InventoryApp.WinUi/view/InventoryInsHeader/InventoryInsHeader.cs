@@ -13,6 +13,7 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
     public partial class InventoryInsHeader : Form
     {
         Entities.Product _product;
+        public Entities.InventoryInsHeader _InventoryInsHeader;
         RepositortAbstracts.IProduct pro;
         RepositortAbstracts.IInventory invs;
         RepositortAbstracts.IInventoryInsType type;
@@ -76,9 +77,7 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
                         grid.AddItem(InentoryDeatiles);
                         grid.ResetBindings();
                         txtamount.Text = string.Empty;
-                        txttitle.Text = string.Empty;
                         txtProduct.Text = string.Empty;
-                        txtdsc.Text = string.Empty;
                     }
                     else
                     {
@@ -101,32 +100,37 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
 
         private void btnadd_Click(object sender, EventArgs e)
         {
-            bool result = true;
-            foreach (var item in ListDeatil)
-                if (result != invd.Add(item))
-                {
-                    result = false;
-                    break;
-                }
-            if (result)
+            int result = invh.AddReturnId(new Entities.InventoryInsHeader
             {
-                invh.Add(new Entities.InventoryInsHeader
+                InventoryId = (int)comboInventory.SelectedValue,
+                TypeId = (int)combotype.SelectedValue,
+                Title = txttitle.Text,
+                Description = txtdsc.Text,
+                Date = DateTime.Now,
+            });
+
+            if (result == 0)
+                MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
+            else
+            {
+                foreach (var item in ListDeatil)
                 {
-                    InventoryId = (int)comboInventory.SelectedValue,
-                    TypeId = (int)combotype.SelectedValue,
-                    Title = txttitle.Text,
-                    Description = txtdsc.Text,
-                    Date = DateTime.Now,
-                });
+                    item.InventoryInsHeaderId = result;
+                    if (!invd.Add(item))
+                    {
+                        MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
+                        break;
+                    }
+
+                }
                 MessageBox.Show("با موفقیت ثبت شد", "پیام سیستم");
             }
-            else
-                MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
+            DialogResult = DialogResult.OK;
         }
 
         public bool IsCapacity(int ProductId, int CategoryId, decimal Amonut)

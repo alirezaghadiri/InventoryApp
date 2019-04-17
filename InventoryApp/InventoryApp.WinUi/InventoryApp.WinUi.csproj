@@ -75,6 +75,9 @@
     <Compile Include="view\InventoryInsHeader\InventoryInsHeader.Designer.cs">
       <DependentUpon>InventoryInsHeader.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\InventoryInsHeader\List.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="view\InventoryInsType\Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>

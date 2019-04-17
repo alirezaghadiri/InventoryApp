@@ -21,6 +21,7 @@ namespace InventoryApp.WinUi.view.systemform
 
         private void btnaccept_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
             if (txtpassword.Text == string.Empty || txtusername.Text == string.Empty)
             {
                 MessageBox.Show("اطلاعات وارد شده درست نمی باشد .", "پیام سیستم", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -45,14 +46,16 @@ namespace InventoryApp.WinUi.view.systemform
                     else
                     {
                         var identity = new GenericIdentity(relateduser.Username);
-                       var roles= relateduser.Roles.Select(p => p.Title).ToArray();
+                        var roles = relateduser.Roles.Select(p => p.Title).ToArray();
                         var principal = new GenericPrincipal(identity, roles);
                         System.Threading.Thread.CurrentPrincipal = principal;
                         DialogResult = DialogResult.OK;
                     }
                 }
             }
+            this.Enabled = true;
         }
+
 
         private void btncancel_Click(object sender, EventArgs e)
         {

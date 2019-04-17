@@ -12,6 +12,7 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
 {
     public partial class InventoryOutsHeader : Form
     {
+        public Entities.InventoryOutsHeader _InventoryOutsHeader;
         Entities.Product _product;
         RepositortAbstracts.IProduct pro;
         RepositortAbstracts.IInventory invs;
@@ -64,7 +65,7 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
                 decimal amount;
                 if (decimal.TryParse(txtamount.Text, out amount))
                 {
-                    if (IsCapacity(_product.ProductId, _product.ProductCategoryId, amount))
+                    if (IsCapacity(_product.ProductId, amount))
                     {
                         var InentoryDeatiles = new Entities.InventoryOutsDeatil()
                         {
@@ -121,14 +122,12 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
                 MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
         }
 
-        public bool IsCapacity(int ProductId, int CategoryId, decimal Amonut)
+        public bool IsCapacity(int ProductId, decimal Amonut)
         {
             var ProductExist = invd.GetAmount(ProductId);
-            var InventoryCapacity = pro.Capacity(CategoryId);
+            var NewProductExist = ProductExist - Amonut;
 
-            var NewProductExist = ProductExist + Amonut;
-
-            if (NewProductExist <= InventoryCapacity)
+            if (NewProductExist >=0)
                 return true;
             else
                 return false;

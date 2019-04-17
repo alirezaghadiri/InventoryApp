@@ -23,7 +23,7 @@ namespace InventoryApp.Framwork
             grid.AllowUserToAddRows = false;
             grid.AllowUserToDeleteRows = false;
             grid.AllowUserToOrderColumns = true;
-            grid.EditMode = DataGridViewEditMode.EditProgrammatically;
+            grid.EditMode = DataGridViewEditMode.EditOnF2;
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
@@ -37,6 +37,40 @@ namespace InventoryApp.Framwork
             });
             return this;
         }
+        public GirdControl<TModel> AddDropDownColumn<TProperty, TComboItem>(Expression<Func<TModel, TProperty>> selector, string title, List<TComboItem> items,
+          Expression<Func<TComboItem, string>> displaySelector, Expression<Func<TComboItem, TProperty>> ValueSelector)
+        {
+            var expressionHandler = new ExpressionHandler();
+            var propertyName = new ExpressionHandler().GetPropertyName(selector);
+            grid.Columns.Add(new DataGridViewComboBoxColumn()
+            {
+                HeaderText = title,
+                DataSource = items,
+                DisplayMember = expressionHandler.GetPropertyName(displaySelector),
+                ValueMember = expressionHandler.GetPropertyName(ValueSelector),
+                DataPropertyName = propertyName,
+
+            });
+            return this;
+        }
+        public GirdControl<TModel> AddDropDownColumnTrueFalse<TProperty>(Expression<Func<TModel,TProperty>> selector, string title)
+        {
+            var propertyName = new ExpressionHandler().GetPropertyName(selector);
+            List<DatagridviewComboItem<bool>> items = new List<DatagridviewComboItem<bool>>();
+            items.Add(new DatagridviewComboItem<bool> { Display = "بله", Value = true });
+            items.Add(new DatagridviewComboItem<bool> { Display = "خیر", Value = false });
+            grid.Columns.Add(new DataGridViewComboBoxColumn()
+            {
+                HeaderText = title,
+                DataSource = items,
+                DisplayMember = "Display",
+                ValueMember = "Value",
+                DataPropertyName = propertyName,
+            });
+            
+            return this;
+        }
+
         public GirdControl<TModel> SetDataSource(IEnumerable<TModel> dataSource)
         {
             bindingSource = new BindingSource();
@@ -68,5 +102,10 @@ namespace InventoryApp.Framwork
                 return (TModel)bindingSource?.Current;
             }
         }
+    }
+    public class DatagridviewComboItem<Tvalue>
+    {
+        public string Display { get; set; }
+        public Tvalue Value { get; set; }
     }
 }

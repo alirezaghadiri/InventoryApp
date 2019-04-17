@@ -18,9 +18,9 @@ namespace InventoryApp.Repositories
             try
             {
                 _InventoryInsHeader.CreatedDate = DateTime.Now;
+                _InventoryInsHeader.Accepted = false;
                 _InventoryInsHeader.CreatedByUserId = DatabaseTools.GetUserID;
-                contaxt.InventoryInsHeaders
-                .Add(_InventoryInsHeader);
+                contaxt.InventoryInsHeaders.Add(_InventoryInsHeader);
                 contaxt.SaveChanges();
                 return true;
             }
@@ -78,6 +78,23 @@ namespace InventoryApp.Repositories
         {
             return contaxt.InventoryInsHeaders
             .Where(p => p.Deleted == false).ToList();
+        }
+
+        public int AddReturnId(InventoryInsHeader _InventoryInsHeader)
+        {
+            try
+            {
+                _InventoryInsHeader.CreatedDate = DateTime.Now;
+                _InventoryInsHeader.Accepted = false;
+                _InventoryInsHeader.CreatedByUserId = DatabaseTools.GetUserID;
+                contaxt.InventoryInsHeaders.Add(_InventoryInsHeader);
+                contaxt.SaveChanges();
+                return _InventoryInsHeader.InventoryInsHeaderId;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }
