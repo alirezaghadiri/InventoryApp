@@ -11,6 +11,7 @@ namespace InventoryApp.RepositortAbstracts
         ProductCategory Find(int id);
         ICollection<ProductCategory> GetAll();
         ICollection<ProductCategory> GetByParent(int id=0);
+        ICollection<ProductCategory> GetByInventory(int id );
         int CanDelete(int Id);
     }
 }

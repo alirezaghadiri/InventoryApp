@@ -16,6 +16,7 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
         public Entities.InventoryInsHeader _InventoryInsHeader;
         RepositortAbstracts.IProduct pro;
         RepositortAbstracts.IInventory invs;
+        RepositortAbstracts.IProductCategory ProCat;
         RepositortAbstracts.IInventoryInsType type;
         RepositortAbstracts.IInventoryInsHeader invh;
         RepositortAbstracts.IInventoryInsDeatil invd;
@@ -28,6 +29,7 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
             type = new Repositories.InventoryInsTypeRepository();
             invh = new Repositories.InventoryInsHeaderRepository();
             invd = new Repositories.InventoryInsDeatilRepository();
+            ProCat = new Repositories.ProductCategoryRepository();
             InitializeComponent();
         }
 
@@ -36,6 +38,11 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
             comboInventory.DataSource = invs.GetAll();
             comboInventory.DisplayMember = "Title";
             comboInventory.ValueMember = "InventoryId";
+            comboInventory.SelectedIndexChanged += ComboInventory_SelectedIndexChanged;
+
+            comoboCategory.DataSource = ProCat.GetByInventory((int)comboInventory.SelectedValue);
+            comoboCategory.DisplayMember = "Title";
+            comoboCategory.ValueMember = "ProductCategoryId";
 
             combotype.DataSource = type.GetAll();
             combotype.DisplayMember = "Title";
@@ -46,18 +53,37 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
             grid.SetDataSource(ListDeatil);
         }
 
+        private void ComboInventory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comoboCategory.DataSource = ProCat.GetByInventory((int)comboInventory.SelectedValue);
+            comoboCategory.DisplayMember = "Title";
+            comoboCategory.ValueMember = "ProductCategoryId";
+        }
+
         private void btnchose_Click(object sender, EventArgs e)
         {
             IOC.TypesResgistry tr = new IOC.TypesResgistry();
             Framwork.ViewEngine f = new Framwork.ViewEngine(tr);
-            var result = f.ViewInForm<view.Product.Select>(null, true);
+            var result = f.ViewInForm<view.Product.Select>(editor=>
+            {
+                object id = comoboCategory.SelectedValue;
+                if(id is int)
+                {
+                    editor.categoryId = (int)id;
+                }
+                else
+                {
+                    return;
+                }
+                
+
+            }, true);
             if (result.DialogResult == DialogResult.OK)
             {
                 _product = result.product;
                 txtProduct.Text = _product.Title;
             }
         }
-
         private void btnAddToList_Click(object sender, EventArgs e)
         {
             if (txtamount.Text == string.Empty && txttitle.Text == string.Empty)
@@ -67,42 +93,38 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
                 decimal amount;
                 if (decimal.TryParse(txtamount.Text, out amount))
                 {
-                    if (IsCapacity(_product.ProductId, _product.ProductCategoryId, amount))
+                    object obj = invd.GetAmount(_product.ProductId);
+                    if (obj is decimal)
                     {
-                        var InentoryDeatiles = new Entities.InventoryInsDeatil()
+                        var ProductExist = (decimal)obj;
+                        var InventoryCapacity = pro.Capacity(_product.ProductCategoryId);
+                        var NewProductExist = ProductExist + amount;
+                        if (NewProductExist <= InventoryCapacity)
                         {
-                            Amount = amount,
-                            ProductId = _product.ProductId,
-                        };
-                        grid.AddItem(InentoryDeatiles);
-                        grid.ResetBindings();
-                        txtamount.Text = string.Empty;
-                        txtProduct.Text = string.Empty;
+                            var InentoryDeatiles = new Entities.InventoryInsDeatil()
+                            {
+                                Amount = amount,
+                                ProductId = _product.ProductId,
+                            };
+                            grid.AddItem(InentoryDeatiles);
+                            grid.ResetBindings();
+                            txtamount.Text = string.Empty;
+
+                        }
+                        else
+                            MessageBox.Show("انبار ظرفیت ندارد", "پیام سیستم");
                     }
                     else
-                    {
-                        MessageBox.Show("انبار ظرفیت ندارد", "پیام سیستم");
-                    }
-
+                        MessageBox.Show("مشکل در بررسی ظرفیت", "پیام سیستم");
                 }
                 else
-                {
                     MessageBox.Show("مقادیر وارد شده نامتعبراست", "پیام سیستم");
-                }
-
-
-
-
-
-
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
-
         private void btnadd_Click(object sender, EventArgs e)
         {
             int result = invh.AddReturnId(new Entities.InventoryInsHeader
@@ -132,20 +154,6 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
             }
             DialogResult = DialogResult.OK;
         }
-
-        public bool IsCapacity(int ProductId, int CategoryId, decimal Amonut)
-        {
-            var ProductExist = invd.GetAmount(ProductId);
-            var InventoryCapacity = pro.Capacity(CategoryId);
-
-            var NewProductExist = ProductExist + Amonut;
-
-            if (NewProductExist <= InventoryCapacity)
-                return true;
-            else
-                return false;
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             grid.RemoveCurrent();

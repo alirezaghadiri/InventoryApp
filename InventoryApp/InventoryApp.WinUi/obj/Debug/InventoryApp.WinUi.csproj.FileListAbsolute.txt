@@ -26,5 +26,5 @@ F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\bin\Debug\InventoryApp.Framw
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\bin\Debug\StructureMap.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\bin\Debug\StructureMap.xml
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.view.InventoryInsHeader.InventoryInsHeader.resources
-F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.view.InventoryOutsType.InventoryOutsHeader.resources
 F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.view.InventoryOutsHeader.InventoryOutsHeader.resources
+F:\GitRepository\C#\InventoryApp\InventoryApp.WinUi\obj\Debug\InventoryApp.WinUi.MainForm.resources

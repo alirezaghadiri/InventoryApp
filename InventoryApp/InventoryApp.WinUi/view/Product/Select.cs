@@ -9,6 +9,7 @@ namespace InventoryApp.WinUi.view.Product
 {
     public class Select : Framwork.ViewBase
     {
+        public int categoryId { get; set; }
         RepositortAbstracts.IProduct pro;
         RepositortAbstracts.IProductParameterValue pvalue;
         public Entities.Product product;
@@ -40,7 +41,7 @@ namespace InventoryApp.WinUi.view.Product
             else
             {
                 grid.AddTextBoxColumn(p => p.ProductCategoryId, "دسته بندی");
-                grid.SetDataSource(pro.GetAll());
+                grid.SetDataSource(pro.GetAll(categoryId));
             }
             base.OnLoad(e);
         }

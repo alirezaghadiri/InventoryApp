@@ -21,32 +21,32 @@ namespace InventoryApp.WinUi
             var menu = addmenu("اطلاعات پایه", null,Keys.None,null);
 
 
-            var menuBaseInfo = menu.addmenu("شرکت", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Corporation.List>());
+            var menuBaseInfo = menu.addmenu("شرکت", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Corporation.List>(null,true));
           
-            menuBaseInfo = menu.addmenu("انبار", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Inventory.List>());
+            menuBaseInfo = menu.addmenu("انبار", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Inventory.List>(null, true));
 
             var menuProdocut = menu.addmenu("محصولات", null, Keys.None, null);
-            menuProdocut.addmenu("محصولات", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Product.List>());
+            menuProdocut.addmenu("محصولات", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Product.List>(null, true));
             menuProdocut.addSeparator();
-            menuProdocut.addmenu("واحداندازه گیری", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.ProductUnit.List>());
-            menuProdocut.addmenu("دسته بندی محصولات", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Category.List>());
+            menuProdocut.addmenu("واحداندازه گیری", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.ProductUnit.List>(null, true));
+            menuProdocut.addmenu("دسته بندی محصولات", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.Category.List>(null, true));
 
             var menuRepoType = menu.addmenu("رسید", null, Keys.None, null);
-            menuRepoType.addmenu("تعریف نوع رسید ورودی", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryInsType.List>());
-            menuRepoType.addmenu("تعریف نوع رسید خروجی", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryOutsType.List>());
+            menuRepoType.addmenu("تعریف نوع رسید ورودی", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryInsType.List>(null, true));
+            menuRepoType.addmenu("تعریف نوع رسید خروجی", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryOutsType.List>(null, true));
 
             menu.addSeparator();
             menu.addmenu("خروج", null, Keys.None, (obj, e) => Application.Exit());
 
 
             var menu1 = addmenu("عملیات", null, Keys.None, null);
-            menu1.addmenu("ورود", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryInsHeader.List>());
-            
-            menu1.addmenu("خروج", null, Keys.None, (obj, e) =>
-            {
-                
-            });
+            menu1.addmenu("ورود", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryInsHeader.List>(null, true));
+
+            menu1.addmenu("خروج", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryOutsHeader.List>(null, true));
         }
-        
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+        }   
     }
 }

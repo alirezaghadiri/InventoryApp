@@ -31,21 +31,51 @@ namespace InventoryApp.WinUi.view.Category
                  }, true);
                  if (view.DialogResult == DialogResult.OK)
                  {
-                     if (CatRep.Add(view.Entity))
+                     if (view.Entity.SubProductCategoryID != 0)
                      {
-                         MessageBox.Show("دسته بندی  با موفقیت ثبت شد", "پیام سیستم");
-                         treeControl.InitRoots();
+                         var CapacityParent = CatRep.Find(view.Entity.SubProductCategoryID).Capacity;
+                         List<Entities.ProductCategory> data = CatRep.GetByParent(view.Entity.SubProductCategoryID).ToList();
+                         decimal count = 0;
+                         foreach (var item in data)
+                         {
+                             count += item.Capacity;
+                         }
+                         var newcapacity = count + view.Entity.Capacity;
+                         if (newcapacity <= CapacityParent)
+                         {
+                             if (CatRep.Add(view.Entity))
+                             {
+                                 MessageBox.Show("دسته بندی  با موفقیت ثبت شد", "پیام سیستم");
+                                 treeControl.InitRoots();
+                             }
+                             else
+                             {
+                                 MessageBox.Show("مشکل در ثبت دسته بندی به وجود آمد", "پیام سیستم");
+                             }
+                         }
+                         else
+                         {
+                             MessageBox.Show("ظرفیت وارد شده بیش از حد است", "پیام سیستم");
+                         }
+
                      }
                      else
                      {
-                         MessageBox.Show("مشکل در ثبت دسته بندی به وجود آمد", "پیام سیستم");
+                         if (CatRep.Add(view.Entity))
+                         {
+                             MessageBox.Show("دسته بندی  با موفقیت ثبت شد", "پیام سیستم");
+                             treeControl.InitRoots();
+                         }
+                         else
+                         {
+                             MessageBox.Show("مشکل در ثبت دسته بندی به وجود آمد", "پیام سیستم");
+                         }
                      }
-
                  }
              });
             AddAction("ویرایش", btn =>
             {
-                var result = viewEngine.ViewInForm<view.ProductCategory.Editor>(editor =>
+                var view = viewEngine.ViewInForm<view.ProductCategory.Editor>(editor =>
                 {
                     if (treeControl.SelectedObject != null)
                         editor.Entity = treeControl.SelectedObject;
@@ -53,17 +83,48 @@ namespace InventoryApp.WinUi.view.Category
                         return;
 
                 }, true);
-                if (result.DialogResult == DialogResult.OK)
+
+                if (view.DialogResult == DialogResult.OK)
                 {
 
-                    if (CatRep.Update(result.Entity))
+                    if (view.Entity.SubProductCategoryID != 0)
                     {
-                        MessageBox.Show("دسته بندی با موفقیت ویرایش شد", "پیام سیستم");
-                        treeControl.InitRoots();
+                        var CapacityParent = CatRep.Find(view.Entity.SubProductCategoryID).Capacity;
+                        List<Entities.ProductCategory> data = CatRep.GetByParent(view.Entity.SubProductCategoryID).ToList();
+                        decimal count = 0;
+                        foreach (var item in data)
+                        {
+                            count += item.Capacity;
+                        }
+                        var newcapacity = count + view.Entity.Capacity;
+                        if (newcapacity <= CapacityParent)
+                        {
+                            if (CatRep.Update(view.Entity))
+                            {
+                                MessageBox.Show("دسته بندی با موفقیت ویرایش شد", "پیام سیستم");
+                                treeControl.InitRoots();
+                            }
+                            else
+                            {
+                                MessageBox.Show("مشکل در ویرایش دسته بندی به وجود آمد", "پیام سیستم");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("ظرفیت وارد شده بیش از حد است", "پیام سیستم");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("مشکل در ویرایش دسته بندی به وجود آمد", "پیام سیستم");
+                        if (CatRep.Update(view.Entity))
+                        {
+                            MessageBox.Show("دسته بندی با موفقیت ویرایش شد", "پیام سیستم");
+                            treeControl.InitRoots();
+                        }
+                        else
+                        {
+                            MessageBox.Show("مشکل در ویرایش دسته بندی به وجود آمد", "پیام سیستم");
+                        }
                     }
                 }
             });

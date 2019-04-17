@@ -59,7 +59,7 @@ namespace InventoryApp.Repositories
             return contaxt.InventoryInsDeatils.ToList();
         }
 
-        public decimal GetAmount(int ProductId)
+        public object GetAmount(int ProductId)
         {
             try
             {
@@ -68,15 +68,14 @@ namespace InventoryApp.Repositories
                 decimal Count = 0;
                 foreach (var item in data)
                 {
-                    var result = contaxt.InventoryInsHeaders.First(p => p.InventoryInsHeaderId == item.InventoryInsHeaderId & p.Accepted==true);
-                    if (result != null)
+                    if(contaxt.InventoryInsHeaders.First(p => p.InventoryInsHeaderId == item.InventoryInsHeaderId & p.Accepted==true) != null)
                         Count += item.Amount;
                 }
                 return Count;
             }
             catch
             {
-                return 0;
+                return null;
             }
             
             

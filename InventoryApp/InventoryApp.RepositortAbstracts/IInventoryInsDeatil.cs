@@ -9,6 +9,6 @@ namespace InventoryApp.RepositortAbstracts
         bool Update(InventoryInsDeatil _InventoryInsDeatil);
         bool Delete(InventoryInsDeatil _InventoryInsDeatil);
         ICollection<InventoryInsDeatil> GetAll();
-        decimal GetAmount(int ProductId);
+        object GetAmount(int ProductId);
     }
 }

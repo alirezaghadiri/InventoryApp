@@ -58,7 +58,7 @@ namespace InventoryApp.Repositories
         {
             return contaxt.InventoryOutsDeatils.ToList();
         }
-        public decimal GetAmount(int ProductId)
+        public object GetAmount(int ProductId)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace InventoryApp.Repositories
             }
             catch
             {
-                return 0;
+                return null;
             }
 
 

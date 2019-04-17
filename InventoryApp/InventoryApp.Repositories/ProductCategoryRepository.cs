@@ -19,12 +19,11 @@ namespace InventoryApp.Repositories
             {
                 _ProductCategory.CreatedDate = DateTime.Now;
                 _ProductCategory.CreatedByUserId = DatabaseTools.GetUserID;
-                contaxt.ProductCategorys
-                .Add(_ProductCategory);
+                contaxt.ProductCategorys.Add(_ProductCategory);
                 contaxt.SaveChanges();
                 return true;
             }
-            catch
+            catch 
             {
                 return false;
             }
@@ -50,8 +49,7 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                return contaxt.ProductCategorys
-                .Where(p => p.ProductCategoryId == id).FirstOrDefault();
+                return contaxt.ProductCategorys.First(p => p.Deleted == false & p.ProductCategoryId == id);
             }
             catch
             {
@@ -76,12 +74,12 @@ namespace InventoryApp.Repositories
         }
         public ICollection<ProductCategory> GetAll()
         {
-            return contaxt.ProductCategorys.Where(p => p.Deleted == false).ToList();
+                return contaxt.ProductCategorys.Where(p => p.Deleted == false).ToList();
         }
 
-        public ICollection<ProductCategory> GetByParent(int id=0)
+        public ICollection<ProductCategory> GetByParent(int id = 0)
         {
-            return contaxt.ProductCategorys.Where(p => p.Deleted == false & p.SubProductCategoryID==id).ToList();
+            return contaxt.ProductCategorys.Where(p => p.Deleted == false & p.SubProductCategoryID == id).ToList();
         }
 
         public int CanDelete(int Id)
@@ -89,6 +87,11 @@ namespace InventoryApp.Repositories
             var count = contaxt.Products.Where(p => p.Deleted == false & p.ProductCategoryId == Id).Count();
             count += contaxt.ProductParameters.Where(p => p.Deleted == false & p.ProductCategoryId == Id).Count();
             return count;
+        }
+
+        public ICollection<ProductCategory> GetByInventory(int id)
+        {
+            return contaxt.ProductCategorys.Where(p => p.Deleted == false & p.InventoryId == id).ToList();
         }
     }
 }

@@ -48,6 +48,8 @@
             this.PanelProducts = new System.Windows.Forms.Panel();
             this.btnDelete = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comoboCategory = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +58,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1009, 57);
+            this.label1.Location = new System.Drawing.Point(1017, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 21);
             this.label1.TabIndex = 0;
@@ -67,7 +69,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(973, 94);
+            this.label2.Location = new System.Drawing.Point(980, 130);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 21);
             this.label2.TabIndex = 1;
@@ -76,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(994, 134);
+            this.label3.Location = new System.Drawing.Point(1007, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 21);
             this.label3.TabIndex = 2;
@@ -85,7 +87,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(981, 246);
+            this.label4.Location = new System.Drawing.Point(980, 264);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 21);
             this.label4.TabIndex = 3;
@@ -95,7 +97,7 @@
             // 
             this.comboInventory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboInventory.FormattingEnabled = true;
-            this.comboInventory.Location = new System.Drawing.Point(646, 54);
+            this.comboInventory.Location = new System.Drawing.Point(622, 54);
             this.comboInventory.Name = "comboInventory";
             this.comboInventory.Size = new System.Drawing.Size(321, 29);
             this.comboInventory.TabIndex = 4;
@@ -104,21 +106,21 @@
             // 
             this.combotype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combotype.FormattingEnabled = true;
-            this.combotype.Location = new System.Drawing.Point(646, 91);
+            this.combotype.Location = new System.Drawing.Point(622, 127);
             this.combotype.Name = "combotype";
             this.combotype.Size = new System.Drawing.Size(321, 29);
             this.combotype.TabIndex = 5;
             // 
             // txttitle
             // 
-            this.txttitle.Location = new System.Drawing.Point(645, 131);
+            this.txttitle.Location = new System.Drawing.Point(622, 162);
             this.txttitle.Name = "txttitle";
             this.txttitle.Size = new System.Drawing.Size(321, 28);
             this.txttitle.TabIndex = 6;
             // 
             // txtdsc
             // 
-            this.txtdsc.Location = new System.Drawing.Point(645, 246);
+            this.txtdsc.Location = new System.Drawing.Point(622, 264);
             this.txtdsc.Multiline = true;
             this.txtdsc.Name = "txtdsc";
             this.txtdsc.Size = new System.Drawing.Size(321, 142);
@@ -146,7 +148,7 @@
             // 
             // btnAddToList
             // 
-            this.btnAddToList.Location = new System.Drawing.Point(533, 131);
+            this.btnAddToList.Location = new System.Drawing.Point(520, 135);
             this.btnAddToList.Name = "btnAddToList";
             this.btnAddToList.Size = new System.Drawing.Size(69, 30);
             this.btnAddToList.TabIndex = 11;
@@ -156,7 +158,7 @@
             // 
             // btnchose
             // 
-            this.btnchose.Location = new System.Drawing.Point(645, 167);
+            this.btnchose.Location = new System.Drawing.Point(622, 194);
             this.btnchose.Name = "btnchose";
             this.btnchose.Size = new System.Drawing.Size(45, 30);
             this.btnchose.TabIndex = 12;
@@ -176,7 +178,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1001, 209);
+            this.label7.Location = new System.Drawing.Point(1009, 233);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 21);
             this.label7.TabIndex = 15;
@@ -185,7 +187,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(991, 171);
+            this.label8.Location = new System.Drawing.Point(998, 199);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 21);
             this.label8.TabIndex = 16;
@@ -193,14 +195,15 @@
             // 
             // txtamount
             // 
-            this.txtamount.Location = new System.Drawing.Point(646, 209);
+            this.txtamount.Location = new System.Drawing.Point(622, 230);
             this.txtamount.Name = "txtamount";
             this.txtamount.Size = new System.Drawing.Size(321, 28);
             this.txtamount.TabIndex = 17;
             // 
             // txtProduct
             // 
-            this.txtProduct.Location = new System.Drawing.Point(696, 168);
+            this.txtProduct.Enabled = false;
+            this.txtProduct.Location = new System.Drawing.Point(673, 196);
             this.txtProduct.Name = "txtProduct";
             this.txtProduct.Size = new System.Drawing.Size(270, 28);
             this.txtProduct.TabIndex = 18;
@@ -233,11 +236,33 @@
             this.panel1.Size = new System.Drawing.Size(1081, 61);
             this.panel1.TabIndex = 20;
             // 
+            // comoboCategory
+            // 
+            this.comoboCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comoboCategory.FormattingEnabled = true;
+            this.comoboCategory.Location = new System.Drawing.Point(622, 92);
+            this.comoboCategory.Name = "comoboCategory";
+            this.comoboCategory.Size = new System.Drawing.Size(321, 29);
+            this.comoboCategory.TabIndex = 22;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(965, 95);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(107, 21);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "دسته بندی : ";
+            // 
             // InventoryInsHeader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1081, 628);
+            this.Controls.Add(this.comoboCategory);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.PanelProducts);
@@ -290,5 +315,7 @@
         private System.Windows.Forms.Panel PanelProducts;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox comoboCategory;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.Mainpanel = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,15 +120,24 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 77);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip.Size = new System.Drawing.Size(1387, 30);
+            this.menuStrip.Size = new System.Drawing.Size(1387, 24);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
+            // 
+            // Mainpanel
+            // 
+            this.Mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Mainpanel.Location = new System.Drawing.Point(0, 101);
+            this.Mainpanel.Name = "Mainpanel";
+            this.Mainpanel.Size = new System.Drawing.Size(1387, 637);
+            this.Mainpanel.TabIndex = 3;
             // 
             // MainFormBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1387, 760);
+            this.Controls.Add(this.Mainpanel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.panel1);
@@ -156,5 +166,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.Panel Mainpanel;
     }
 }
