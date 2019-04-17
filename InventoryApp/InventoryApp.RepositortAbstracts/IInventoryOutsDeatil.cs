@@ -7,8 +7,8 @@ namespace InventoryApp.RepositortAbstracts
     {
         bool Add(InventoryOutsDeatil _InventoryOutsDeatil);
         bool Update(InventoryOutsDeatil _InventoryOutsDeatil);
-        bool Delete(int id);
-        InventoryOutsDeatil Find(int id);
+        bool Delete(InventoryOutsDeatil _InventoryOutsDeatil);
         ICollection<InventoryOutsDeatil> GetAll();
+        decimal GetAmount(int ProductId);
     }
 }

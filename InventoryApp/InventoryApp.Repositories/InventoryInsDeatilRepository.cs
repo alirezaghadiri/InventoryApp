@@ -26,11 +26,11 @@ namespace InventoryApp.Repositories
                 return false;
             }
         }
-        public bool Delete(int id)
+        public bool Delete(InventoryInsDeatil _InventoryInsDeatil)
         {
             try
             {
-                var _contaxt = contaxt.InventoryInsDeatils.Remove(contaxt.InventoryInsDeatils.Where(p => p.InventoryInsDeatilId == id).FirstOrDefault());
+                var _contaxt = contaxt.InventoryInsDeatils.Remove(_InventoryInsDeatil);
                 contaxt.SaveChanges();
                 return true;
             }
@@ -39,22 +39,13 @@ namespace InventoryApp.Repositories
                 return false;
             }
         }
-        public InventoryInsDeatil Find(int id)
-        {
-            try
-            {
-                return contaxt.InventoryInsDeatils.Where(p => p.InventoryInsDeatilId == id).FirstOrDefault();
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        
         public bool Update(InventoryInsDeatil _InventoryInsDeatil)
         {
             try
             {
-                var _contaxt = contaxt.InventoryInsDeatils.Where(p => p.InventoryInsDeatilId == _InventoryInsDeatil.InventoryInsDeatilId).FirstOrDefault();
+                var _contaxt = contaxt.InventoryInsDeatils.First(
+                    p => p.InventoryInsHeaderId == _InventoryInsDeatil.InventoryInsHeaderId & p.ProductId == _InventoryInsDeatil.ProductId);
                 _contaxt = _InventoryInsDeatil;
                 return true;
             }
@@ -66,6 +57,29 @@ namespace InventoryApp.Repositories
         public ICollection<InventoryInsDeatil> GetAll()
         {
             return contaxt.InventoryInsDeatils.ToList();
+        }
+
+        public decimal GetAmount(int ProductId)
+        {
+            try
+            {
+                var data = contaxt.InventoryInsDeatils.Where(p => p.ProductId == ProductId).ToList();
+                
+                decimal Count = 0;
+                foreach (var item in data)
+                {
+                    var result = contaxt.InventoryInsHeaders.First(p => p.InventoryInsHeaderId == item.InventoryInsHeaderId & p.Accepted==true);
+                    if (result != null)
+                        Count += item.Amount;
+                }
+                return Count;
+            }
+            catch
+            {
+                return 0;
+            }
+            
+            
         }
     }
 }

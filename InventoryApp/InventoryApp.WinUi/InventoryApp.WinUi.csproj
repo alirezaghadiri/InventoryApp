@@ -69,6 +69,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="view\InventoryInsHeader\InventoryInsHeader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\InventoryInsHeader\InventoryInsHeader.Designer.cs">
+      <DependentUpon>InventoryInsHeader.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\InventoryInsType\Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -78,14 +84,20 @@
     <Compile Include="view\InventoryInsHeader\Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="view\InventoryInsHeader\ViewInventoryInsHeader.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="view\InventoryOutsHeader\InventoryOutsHeader.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\InventoryInsHeader\ViewInventoryInsHeader.Designer.cs">
-      <DependentUpon>ViewInventoryInsHeader.cs</DependentUpon>
+    <Compile Include="view\InventoryOutsHeader\InventoryOutsHeader.Designer.cs">
+      <DependentUpon>InventoryOutsHeader.cs</DependentUpon>
     </Compile>
     <Compile Include="view\InventoryOutsType\Editor.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\InventoryOutsType\InventoryOutsHeader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\InventoryOutsType\InventoryOutsHeader.Designer.cs">
+      <DependentUpon>InventoryOutsHeader.cs</DependentUpon>
     </Compile>
     <Compile Include="view\InventoryOutsType\List.cs">
       <SubType>UserControl</SubType>
@@ -156,8 +168,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="view\InventoryInsHeader\ViewInventoryInsHeader.resx">
-      <DependentUpon>ViewInventoryInsHeader.cs</DependentUpon>
+    <EmbeddedResource Include="view\InventoryInsHeader\InventoryInsHeader.resx">
+      <DependentUpon>InventoryInsHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\InventoryOutsHeader\InventoryOutsHeader.resx">
+      <DependentUpon>InventoryOutsHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\InventoryOutsType\InventoryOutsHeader.resx">
+      <DependentUpon>InventoryOutsHeader.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\systemform\DBconnectionSettingsForm.resx">
       <DependentUpon>DBconnectionSettingsForm.cs</DependentUpon>

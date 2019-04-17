@@ -11,5 +11,6 @@ namespace InventoryApp.RepositortAbstracts
         Product Find(int id);
         ICollection<Product> GetAll(int PoroductCategoryId=0);
         int CanDelete(int Id);
+        decimal Capacity(int CategoryId);
     }
 }

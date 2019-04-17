@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 
 namespace InventoryApp.Entities
@@ -36,7 +37,7 @@ namespace InventoryApp.Entities
 
         public virtual Inventory Inv { get; set; }
         public virtual InventoryOutsType type { get; set; }
-        
+        public ICollection<InventoryOutsDeatil> InventoryOutsDeatiles { get; set; }
 
         public static EntityTypeConfiguration<InventoryOutsHeader> Map()
         {

@@ -13,7 +13,7 @@ namespace InventoryApp.Framwork
         public List<EntityEditorControl> createdControls = new List<EntityEditorControl>();
         public TEntity Entity { get; set; }
 
-        public TEntity EntityCopy;
+        private TEntity EntityCopy;
         public EntityEditor()
         {
             Entity = new TEntity();

@@ -86,5 +86,10 @@ namespace InventoryApp.Repositories
             count += contaxt.InventoryOutsDeatils.Where(p => p.ProductId == Id).Count();
             return count;
         }
+
+        public decimal Capacity(int CategoryId)
+        {
+            return contaxt.ProductCategorys.First(p => p.ProductCategoryId == CategoryId).Capacity;
+        }
     }
 }
