@@ -33,6 +33,7 @@ namespace InventoryApp.WinUi
             {
                 Application.Exit();
             }
+           
         }
     }
 }

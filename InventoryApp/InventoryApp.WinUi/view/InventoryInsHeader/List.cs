@@ -10,10 +10,12 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
     public class List : Framwork.ViewBase
     {
         RepositortAbstracts.IInventoryInsHeader Invs;
+        RepositortAbstracts.IInventoryInsDeatil invd;
         Framwork.GirdControl<Entities.InventoryInsHeader> grid;
-        public List(RepositortAbstracts.IInventoryInsHeader InventoryInsHeaderRepository)
+        public List(RepositortAbstracts.IInventoryInsHeader InventoryInsHeaderRepository, RepositortAbstracts.IInventoryInsDeatil invd)
         {
             this.Invs = InventoryInsHeaderRepository;
+            this.invd = invd;
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -26,22 +28,15 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
                     grid.ResetBindings();
                 }
             });
-            AddAction("ویرایش", btn =>
-            {
-                if (Invs.Update(grid.CurrentItem))
-                {
-                    grid.ResetBindings();
-                    MessageBox.Show("با موفقیت ثبت شد", "پیام سیستم");
-                }
-                else
-                {
-                    MessageBox.Show("مشکل در ویرایش  به وجود آمد", "پیام سیستم");
-                }
-            });
             AddAction("حذف", btn =>
             {
-                if (Invs.Delete(grid.CurrentItem.InventoryInsHeaderId))
+                int id = grid.CurrentItem.InventoryInsHeaderId;
+                if (Invs.Delete(id))
                 {
+                    foreach (var item in invd.GetAll().Where(p => p.InventoryInsHeaderId == id).ToList())
+                    {
+                        invd.Delete(item);
+                    }
                     grid.ResetBindings();
                     MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
                 }
