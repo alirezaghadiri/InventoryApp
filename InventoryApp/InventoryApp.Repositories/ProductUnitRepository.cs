@@ -63,9 +63,12 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.ProductUnits
                 .Where(p => p.ProductUnitId == _ProductUnit.ProductUnitId).FirstOrDefault();
-                _contaxt = _ProductUnit;
+                _contaxt.ProductUnitId = _ProductUnit.ProductUnitId;
+                _contaxt.Title = _ProductUnit.Title;
+                _contaxt.Description = _ProductUnit.Description;
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
             catch

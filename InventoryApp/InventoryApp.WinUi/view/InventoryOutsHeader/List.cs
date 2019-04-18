@@ -19,7 +19,7 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
         {
             AddAction("افزودن", btn =>
             {
-                InventoryOutsHeader IH = new view.InventoryOutsHeader.InventoryOutsHeader();
+                InventoryOutsHeader IH = new InventoryOutsHeader();
                 if (IH.ShowDialog() == DialogResult.OK)
                 {
                     grid.AddItem(IH._InventoryOutsHeader);

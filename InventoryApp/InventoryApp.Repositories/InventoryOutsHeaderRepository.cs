@@ -65,9 +65,15 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.InventoryOutsHeaders
                 .Where(p => p.InventoryOutsHeaderId == _InventoryOutsHeader.InventoryOutsHeaderId).FirstOrDefault();
-                _contaxt = _InventoryOutsHeader;
+                _contaxt.InventoryOutsHeaderId = _InventoryOutsHeader.InventoryOutsHeaderId;
+                _contaxt.InventoryId = _InventoryOutsHeader.InventoryId;
+                _contaxt.TypeId = _InventoryOutsHeader.TypeId;
+                _contaxt.Title = _InventoryOutsHeader.Title;
+                _contaxt.Description = _InventoryOutsHeader.Description;
+                _contaxt.Date = _InventoryOutsHeader.Date;
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
             catch

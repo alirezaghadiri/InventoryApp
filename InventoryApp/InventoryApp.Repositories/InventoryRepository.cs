@@ -3,6 +3,7 @@ using System.Linq;
 using InventoryApp.Entities;
 using InventoryApp.RepositortAbstracts;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace InventoryApp.Repositories
 {
@@ -60,14 +61,18 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var _contaxt = contaxt.Inventories
-                .Where(p => p.InventoryId == _Inventory.InventoryId).FirstOrDefault();
-                _contaxt = _Inventory;
+                var _contaxt = contaxt.Inventories.Where(p => p.InventoryId == _Inventory.InventoryId).FirstOrDefault();
+                _contaxt.CorporationId = _Inventory.CorporationId;
+                _contaxt.Title = _Inventory.Title;
+                _contaxt.Address = _Inventory.Address;
+                _contaxt.Telephone = _Inventory.Telephone;
+                _contaxt.Description = _Inventory.Description;
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
@@ -80,9 +85,10 @@ namespace InventoryApp.Repositories
         public int CanDelete(int ID)
         {
             var count = contaxt.ProductCategorys.Where(p => p.Deleted == false & p.InventoryId == ID).Count();
-            count+=contaxt.InventoryOutsHeaders.Where(p => p.Deleted == false & p.InventoryId == ID).Count();
+            count += contaxt.InventoryOutsHeaders.Where(p => p.Deleted == false & p.InventoryId == ID).Count();
             count += contaxt.InventoryInsHeaders.Where(p => p.Deleted == false & p.InventoryId == ID).Count();
             return count;
         }
+
     }
 }

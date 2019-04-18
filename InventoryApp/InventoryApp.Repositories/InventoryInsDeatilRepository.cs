@@ -39,13 +39,13 @@ namespace InventoryApp.Repositories
                 return false;
             }
         }
-        
+
         public bool Update(InventoryInsDeatil _InventoryInsDeatil)
         {
             try
             {
-                var _contaxt = contaxt.InventoryInsDeatils.First(
-                    p => p.InventoryInsHeaderId == _InventoryInsDeatil.InventoryInsHeaderId & p.ProductId == _InventoryInsDeatil.ProductId);
+                var _contaxt = contaxt.InventoryInsDeatils.First(p => p.InventoryInsHeaderId == _InventoryInsDeatil.InventoryInsHeaderId & p.ProductId == _InventoryInsDeatil.ProductId);
+                _contaxt.Amount = _InventoryInsDeatil.Amount;
                 _contaxt = _InventoryInsDeatil;
                 return true;
             }
@@ -63,22 +63,18 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var data = contaxt.InventoryInsDeatils.Where(p => p.ProductId == ProductId).ToList();
-                
                 decimal Count = 0;
-                foreach (var item in data)
-                {
-                    if(contaxt.InventoryInsHeaders.First(p => p.InventoryInsHeaderId == item.InventoryInsHeaderId & p.Accepted==true) != null)
+                foreach (var item in contaxt.InventoryInsDeatils.Where(p => p.ProductId == ProductId).ToList())
+                    if (contaxt.InventoryInsHeaders.First(p => p.InventoryInsHeaderId == item.InventoryInsHeaderId & p.Accepted == true) != null)
                         Count += item.Amount;
-                }
                 return Count;
             }
             catch
             {
                 return null;
             }
-            
-            
+
+
         }
     }
 }

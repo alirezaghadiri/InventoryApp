@@ -1,6 +1,6 @@
-﻿namespace InventoryApp.WinUi.view.InventoryInsHeader
+﻿namespace InventoryApp.WinUi.view.InventoryOutsHeader
 {
-    partial class InventoryInsHeader
+    partial class InventoryOutsHeader
     {
         /// <summary>
         /// Required designer variable.
@@ -158,6 +158,7 @@
             // 
             // btnchose
             // 
+            this.btnchose.Enabled = false;
             this.btnchose.Location = new System.Drawing.Point(622, 194);
             this.btnchose.Name = "btnchose";
             this.btnchose.Size = new System.Drawing.Size(45, 30);

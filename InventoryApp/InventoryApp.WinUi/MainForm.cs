@@ -53,6 +53,8 @@ namespace InventoryApp.WinUi
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-        }   
+        }
+
+        
     }
 }

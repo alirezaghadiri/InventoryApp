@@ -63,9 +63,15 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.Products
                 .Where(p => p.ProductId == _Product.ProductId).FirstOrDefault();
-                _contaxt = _Product;
+                _contaxt.ProductId = _Product.ProductId;
+                _contaxt.ProductCategoryId = _Product.ProductCategoryId;
+                _contaxt.ProductUnitId = _Product.ProductUnitId;
+                _contaxt.Code = _Product.Code;
+                _contaxt.Title = _Product.Title;
+                _contaxt.Description = _Product.Description;
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
             catch
@@ -78,11 +84,11 @@ namespace InventoryApp.Repositories
             if (PoroductCategoryId == 0)
                 return contaxt.Products.Where(p => p.Deleted == false).ToList();
             else
-                return contaxt.Products.Where(p => p.Deleted == false & p.ProductCategoryId== PoroductCategoryId).ToList();
+                return contaxt.Products.Where(p => p.Deleted == false & p.ProductCategoryId == PoroductCategoryId).ToList();
         }
         public int CanDelete(int Id)
         {
-            var count = contaxt.InventoryInsDeatils.Where(p =>p.ProductId==Id).Count();
+            var count = contaxt.InventoryInsDeatils.Where(p => p.ProductId == Id).Count();
             count += contaxt.InventoryOutsDeatils.Where(p => p.ProductId == Id).Count();
             return count;
         }
@@ -113,11 +119,11 @@ namespace InventoryApp.Repositories
                 }
                 return Iamount - Oamount;
             }
-            catch 
+            catch
             {
-                return 0; 
+                return 0;
             }
-            
+
         }
     }
 }

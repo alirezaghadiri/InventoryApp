@@ -24,7 +24,7 @@ namespace InventoryApp.Repositories
                 contaxt.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -64,9 +64,16 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.ProductParameters
                 .Where(p => p.ProductParameterId == _ProductParameter.ProductParameterId).FirstOrDefault();
-                _contaxt = _ProductParameter;
+           
+                _contaxt.ProductParameterId = _ProductParameter.ProductParameterId;
+                _contaxt.ProductCategoryId = _ProductParameter.ProductCategoryId;
+                _contaxt.Key = _ProductParameter.Key;
+                _contaxt.Title = _ProductParameter.Title;
+                _contaxt.Description = _ProductParameter.Description;
+
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
             catch
@@ -76,15 +83,15 @@ namespace InventoryApp.Repositories
         }
         public ICollection<ProductParameter> GetAll(int ProductCategoryId = 0)
         {
-            if(ProductCategoryId == 0)
+            if (ProductCategoryId == 0)
             {
                 return contaxt.ProductParameters.Where(p => p.Deleted == false).ToList();
             }
             else
             {
-                return contaxt.ProductParameters.Where(p => p.Deleted == false & p.ProductCategoryId== ProductCategoryId).ToList();
+                return contaxt.ProductParameters.Where(p => p.Deleted == false & p.ProductCategoryId == ProductCategoryId).ToList();
             }
-            
+
         }
 
         public int CanDelete(int Id)

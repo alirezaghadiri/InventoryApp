@@ -23,7 +23,7 @@ namespace InventoryApp.Framwork
             grid.AllowUserToAddRows = false;
             grid.AllowUserToDeleteRows = false;
             grid.AllowUserToOrderColumns = true;
-            grid.EditMode = DataGridViewEditMode.EditOnF2;
+            grid.EditMode = DataGridViewEditMode.EditProgrammatically;
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }

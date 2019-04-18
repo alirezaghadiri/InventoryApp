@@ -64,7 +64,14 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.InventoryInsHeaders
                 .Where(p => p.InventoryInsHeaderId == _InventoryInsHeader.InventoryInsHeaderId).FirstOrDefault();
-                _contaxt = _InventoryInsHeader;
+
+                _contaxt.InventoryInsHeaderId = _InventoryInsHeader.InventoryInsHeaderId;
+                _contaxt.InventoryId = _InventoryInsHeader.InventoryId;
+                _contaxt.TypeId = _InventoryInsHeader.TypeId;
+                _contaxt.Title = _InventoryInsHeader.Title;
+                _contaxt.Description = _InventoryInsHeader.Description;
+                _contaxt.Date = _InventoryInsHeader.Date;
+
                 _contaxt.ChangedDate = DateTime.Now;
                 _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
                 return true;

@@ -64,9 +64,12 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.InventoryInsTypes
                 .Where(p => p.InventoryInsTypeId == _InventoryInsType.InventoryInsTypeId).FirstOrDefault();
-                _contaxt = _InventoryInsType;
+                _contaxt.InventoryInsTypeId = _InventoryInsType.InventoryInsTypeId;
+                _contaxt.Title = _InventoryInsType.Title;
+                _contaxt.Description = _InventoryInsType.Description;
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
             catch
@@ -82,7 +85,7 @@ namespace InventoryApp.Repositories
 
         public int CanDelete(int Id)
         {
-            return contaxt.InventoryInsHeaders.Where(p => p.Deleted == false & p.TypeId==Id).Count();
+            return contaxt.InventoryInsHeaders.Where(p => p.Deleted == false & p.TypeId == Id).Count();
         }
     }
 }

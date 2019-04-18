@@ -19,8 +19,7 @@ namespace InventoryApp.Repositories
             {
                 _InventoryOutsType.CreatedDate = DateTime.Now;
                 _InventoryOutsType.CreatedByUserId = DatabaseTools.GetUserID;
-                contaxt.InventoryOutsTypes
-                .Add(_InventoryOutsType);
+                contaxt.InventoryOutsTypes.Add(_InventoryOutsType);
                 contaxt.SaveChanges();
                 return true;
             }
@@ -33,8 +32,7 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var _contaxt = contaxt.InventoryOutsTypes
-                .Where(p => p.InventoryOutsTypeId == id).FirstOrDefault();
+                var _contaxt = contaxt.InventoryOutsTypes.Where(p => p.InventoryOutsTypeId == id).FirstOrDefault();
                 _contaxt.Deleted = true;
                 _contaxt.DeletedDate = DateTime.Now;
                 _contaxt.DeletedByUserId = DatabaseTools.GetUserID;
@@ -64,9 +62,12 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.InventoryOutsTypes
                 .Where(p => p.InventoryOutsTypeId == _InventoryOutsType.InventoryOutsTypeId).FirstOrDefault();
-                _contaxt = _InventoryOutsType;
+                _contaxt.InventoryOutsTypeId = _InventoryOutsType.InventoryOutsTypeId;
+                _contaxt.Title = _InventoryOutsType.Title;
+                _contaxt.Description = _InventoryOutsType.Description;
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
             catch

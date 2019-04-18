@@ -13,6 +13,8 @@ namespace InventoryApp.WinUi.view.Product
         RepositortAbstracts.IProductUnit unit;
         RepositortAbstracts.IProductParameter paramsRepo;
         RepositortAbstracts.IProductParameterValue Pvalue;
+        public int _OldParameterId = 0;
+        private ComboBox ComboProductCategory;
         public Dictionary<Entities.ProductParameter,TextBox> parameterControls = new Dictionary<Entities.ProductParameter,TextBox>();
         public Editor(RepositortAbstracts.IProductCategory catrepo, RepositortAbstracts.IProductUnit unit, RepositortAbstracts.IProductParameter paramsRepo, RepositortAbstracts.IProductParameterValue Pvalue)
         {
@@ -20,11 +22,13 @@ namespace InventoryApp.WinUi.view.Product
             this.unit = unit;
             this.Pvalue = Pvalue;
             this.paramsRepo = paramsRepo;
+            _OldParameterId = Entity.ProductCategoryId;
         }
         protected override void OnLoad(EventArgs e)
         {
-            var com=ComboBox(p => p.ProductCategoryId, "دسته بندی", catrepo.GetAll().ToList(), p => p.Title, p => p.ProductCategoryId);
-            com.SelectedIndexChanged += Com_SelectedIndexChanged;
+
+            ComboProductCategory = ComboBox(p => p.ProductCategoryId, "دسته بندی", catrepo.GetAll().ToList(), p => p.Title, p => p.ProductCategoryId);
+            ComboProductCategory.SelectedIndexChanged += Com_SelectedIndexChanged;
             TextBox(p => p.Code,"کد");
             TextBox(p => p.Title, "عنوان");
             ComboBox(p => p.ProductUnitId, "واحد اندازه گیری", unit.GetAll().ToList(), p => p.Title, p => p.ProductUnitId);
@@ -43,24 +47,27 @@ namespace InventoryApp.WinUi.view.Product
                 foreach (var item in param)
                 {
                     var txt = TextBox(item.Title, "param");
-                    if(value.Count!=0)
-                    txt.Text = value.First(p => p.ProductParameterId == item.ProductParameterId).Value;
+                    Entities.ProductParameterValue data = value.FirstOrDefault(p => p.ProductParameterId == item.ProductParameterId & p.ProductId == Entity.ProductId);
+                    if (data != default(Entities.ProductParameterValue))
+                        txt.Text = data.Value;
                     parameterControls.Add(item, txt);
                 }
             }
         }
         private void Com_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var control = this.Controls.Cast<Control>().Where(c => (string)c.Tag == "param").ToList();
-            foreach (var item in control)
-            {
-                this.Controls.Remove(item);
-                RemoveControls(item);
-            }
-            parameterControls.Clear();
-            Entity.ProductCategoryId =(int)((ComboBox)sender).SelectedValue;
-            AddParameter(Entity.ProductCategoryId);
-            AdjustControls();
+         
+                var control = this.Controls.Cast<Control>().Where(c => (string)c.Tag == "param").ToList();
+                foreach (var item in control)
+                {
+                    this.Controls.Remove(item);
+                    RemoveControls(item);
+                }
+                parameterControls.Clear();
+             if(ComboProductCategory.SelectedValue!=default(object))
+                Entity.ProductCategoryId = (int)ComboProductCategory.SelectedValue;
+                AddParameter(Entity.ProductCategoryId);
+                AdjustControls();
         }
     }
 }

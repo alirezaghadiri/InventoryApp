@@ -32,22 +32,21 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
             ProCat = new Repositories.ProductCategoryRepository();
             InitializeComponent();
         }
-        private void InventoryOutsHeader_Load(object sender, EventArgs e)
+
+        private void InventoryInsHeader_Load(object sender, EventArgs e)
         {
             comboInventory.DataSource = invs.GetAll();
             comboInventory.DisplayMember = "Title";
             comboInventory.ValueMember = "InventoryId";
             comboInventory.SelectedIndexChanged += ComboInventory_SelectedIndexChanged;
 
-
-
-            comboCategory.DataSource = ProCat.GetByInventory((int)comboInventory.SelectedValue);
-            comboCategory.DisplayMember = "Title";
-            comboCategory.ValueMember = "ProductCategoryId";
+            comoboCategory.DataSource = ProCat.GetByInventory((int)comboInventory.SelectedValue);
+            comoboCategory.DisplayMember = "Title";
+            comoboCategory.ValueMember = "ProductCategoryId";
 
             combotype.DataSource = type.GetAll();
             combotype.DisplayMember = "Title";
-            combotype.ValueMember = "InventoryInsTypeId";
+            combotype.ValueMember = "InventoryOutsTypeId";
             grid = new Framwork.GirdControl<Entities.InventoryOutsDeatil>(PanelProducts);
             grid.AddTextBoxColumn(d => d.ProductId, "کد کالا");
             grid.AddTextBoxColumn(d => d.Amount, "مقدار");
@@ -56,23 +55,49 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
 
         private void ComboInventory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboCategory.DataSource = ProCat.GetByInventory((int)comboInventory.SelectedValue);
-            comboCategory.DisplayMember = "Title";
-            comboCategory.ValueMember = "ProductCategoryId";
+            int id = (int)comboInventory.SelectedValue;
+             ICollection<Entities.ProductCategory> Source= ProCat.GetByInventory(id);
+
+            if (Source.Count!=0)
+            {
+                comoboCategory.DataSource = ProCat.GetByInventory(id);
+                comoboCategory.DisplayMember = "Title";
+                comoboCategory.ValueMember = "ProductCategoryId";
+                btnchose.Enabled = true;
+                comoboCategory.Enabled = true;
+            }
+            else
+            {
+                comoboCategory.DataSource = null;
+                comoboCategory.Enabled = false;
+                btnchose.Enabled = false;
+            }
         }
 
         private void btnchose_Click(object sender, EventArgs e)
         {
             IOC.TypesResgistry tr = new IOC.TypesResgistry();
             Framwork.ViewEngine f = new Framwork.ViewEngine(tr);
-            var result = f.ViewInForm<view.Product.Select>(null, true);
+            var result = f.ViewInForm<view.Product.Select>(editor=>
+            {
+                object id = comoboCategory.SelectedValue;
+                if(id is int)
+                {
+                    editor.categoryId = (int)id;
+                }
+                else
+                {
+                    return;
+                }
+                
+
+            }, true);
             if (result.DialogResult == DialogResult.OK)
             {
                 _product = result.product;
                 txtProduct.Text = _product.Title;
             }
         }
-
         private void btnAddToList_Click(object sender, EventArgs e)
         {
             if (txtamount.Text == string.Empty && txttitle.Text == string.Empty)
@@ -82,7 +107,7 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
                 decimal amount;
                 if (decimal.TryParse(txtamount.Text, out amount))
                 {
-                    object obj = invd.GetAmount(_product.ProductId);
+                    object obj = pro.GetAmount(_product.ProductId);
                     if (obj is decimal)
                     {
                         var ProductExist = (decimal)obj;
@@ -111,64 +136,46 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
                     MessageBox.Show("مقادیر وارد شده نامتعبراست", "پیام سیستم");
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
-
         private void btnadd_Click(object sender, EventArgs e)
         {
-            bool result = true;
-            foreach (var item in ListDeatil)
-                if (result != invd.Add(item))
-                {
-                    result = false;
-                    break;
-                }
-            if (result)
+            int result = invh.AddReturnId(new Entities.InventoryOutsHeader
             {
-                invh.Add(new Entities.InventoryOutsHeader
+                InventoryId = (int)comboInventory.SelectedValue,
+                TypeId = (int)combotype.SelectedValue,
+                Title = txttitle.Text,
+                Description = txtdsc.Text,
+                Date = DateTime.Now,
+            });
+
+            if (result == 0)
+                MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
+            else
+            {
+                foreach (var item in ListDeatil)
                 {
-                    InventoryId = (int)comboInventory.SelectedValue,
-                    TypeId = (int)combotype.SelectedValue,
-                    Title = txttitle.Text,
-                    Description = txtdsc.Text,
-                    Date = DateTime.Now,
-                });
+                    item.InventoryOutsHeaderId = result;
+                    if (!invd.Add(item))
+                    {
+                        MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
+                        break;
+                    }
+
+                }
                 MessageBox.Show("با موفقیت ثبت شد", "پیام سیستم");
             }
-            else
-                MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");
-        }
+            DialogResult = DialogResult.OK;
 
+
+            
+        }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             grid.RemoveCurrent();
             grid.ResetBindings();
-        }
-
-        private void btnchose_Click_1(object sender, EventArgs e)
-        {
-            IOC.TypesResgistry tr = new IOC.TypesResgistry();
-            Framwork.ViewEngine f = new Framwork.ViewEngine(tr);
-            var result = f.ViewInForm<view.Product.Select>(editor =>
-            {
-                object id = comboCategory.SelectedValue;
-                if (id is int)
-                {
-                    editor.categoryId = (int)id;
-                }
-                else
-                {
-                    return;
-                }
-            }, true);
-            if (result.DialogResult == DialogResult.OK)
-            {
-                _product = result.product;
-                txtProduct.Text = _product.Title;
-            }
         }
     }
 }

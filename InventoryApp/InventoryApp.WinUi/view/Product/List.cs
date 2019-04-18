@@ -53,7 +53,7 @@ namespace InventoryApp.WinUi.view.Product
                 }, true);
                 if (result.DialogResult == DialogResult.OK)
                 {
-                    if (Updateparamervalue(result.parameterControls, result.Entity.ProductId))
+                    if (Updateparamervalue(result.parameterControls, result.Entity, result._OldParameterId))
                     {
                         if (pro.Update(result.Entity))
                         {
@@ -146,19 +146,31 @@ namespace InventoryApp.WinUi.view.Product
                 return false;
             }
         }
-        public bool Updateparamervalue(Dictionary<Entities.ProductParameter, TextBox> param, int id)
+        public bool Updateparamervalue(Dictionary<Entities.ProductParameter, TextBox> param, Entities.Product product, int OldCategoryid)
         {
             try
             {
-                foreach (var item in param)
+                if (OldCategoryid == product.ProductCategoryId)
                 {
-                    pvalue.Update(new Entities.ProductParameterValue
+                    foreach (var item in param)
                     {
-                        ProductId = id,
-                        ProductParameterId = item.Key.ProductParameterId,
-                        Value = item.Value.Text,
-                    });
+                        pvalue.Update(new Entities.ProductParameterValue
+                        {
+                            ProductId = product.ProductId,
+                            ProductParameterId = item.Key.ProductParameterId,
+                            Value = item.Value.Text,
+                        });
+                    }
                 }
+                else
+                {
+                    if (pvalue.Delete(product.ProductId))
+                    {
+                        Addparamervalue(param, product.ProductId);
+                    }
+                }
+
+
 
                 return true;
             }

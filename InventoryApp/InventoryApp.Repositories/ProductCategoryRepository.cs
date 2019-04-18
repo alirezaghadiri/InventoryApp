@@ -23,7 +23,7 @@ namespace InventoryApp.Repositories
                 contaxt.SaveChanges();
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -62,9 +62,17 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.ProductCategorys
                 .Where(p => p.ProductCategoryId == _ProductCategory.ProductCategoryId).FirstOrDefault();
-                _contaxt = _ProductCategory;
+
+                _contaxt.ProductCategoryId = _contaxt.ProductCategoryId;
+                _contaxt.SubProductCategoryID = _contaxt.SubProductCategoryID;
+                _contaxt.InventoryId = _contaxt.InventoryId;
+                _contaxt.Title = _contaxt.Title;
+                _contaxt.Description = _contaxt.Description;
+                _contaxt.Capacity = _contaxt.Capacity;
+
                 _contaxt.ChangedDate = DateTime.Now;
-                _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                _contaxt.ChangedByUserId = DatabaseTools.GetUserID;
+                contaxt.SaveChanges();
                 return true;
             }
             catch
@@ -74,7 +82,7 @@ namespace InventoryApp.Repositories
         }
         public ICollection<ProductCategory> GetAll()
         {
-                return contaxt.ProductCategorys.Where(p => p.Deleted == false).ToList();
+            return contaxt.ProductCategorys.Where(p => p.Deleted == false).ToList();
         }
 
         public ICollection<ProductCategory> GetByParent(int id = 0)

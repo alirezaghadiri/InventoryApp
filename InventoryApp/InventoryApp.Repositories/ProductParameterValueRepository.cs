@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryApp.Repositories
 {
-    public class ProductParameterValueRepository:RepositortAbstracts.IProductParameterValue
+    public class ProductParameterValueRepository : RepositortAbstracts.IProductParameterValue
     {
         private DataLayer.InventoryDBContext contaxt { get; set; }
         public ProductParameterValueRepository()
@@ -31,8 +31,11 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var _contaxt = contaxt.ProductParsmeterValues.Where(p => p.ProductId == _ProductParameterValue.ProductId).FirstOrDefault();
-                 contaxt.SaveChanges();
+                var _contaxt = contaxt.ProductParsmeterValues.Where(p => p.ProductId == _ProductParameterValue.ProductId & p.ProductParameterId == _ProductParameterValue.ProductParameterId).FirstOrDefault();
+                _contaxt.ProductId = _ProductParameterValue.ProductId;
+                _contaxt.ProductParameterId = _ProductParameterValue.ProductParameterId;
+                _contaxt.Value = _ProductParameterValue.Value;
+                contaxt.SaveChanges();
                 return true;
             }
             catch

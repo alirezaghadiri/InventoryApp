@@ -64,7 +64,10 @@ namespace InventoryApp.Repositories
             {
                 var _contaxt = contaxt.Corporations
                 .Where(p => p.CorporationId == _Corporation.CorporationId).FirstOrDefault();
-                _contaxt = _Corporation;
+                _contaxt.Title = _Corporation.Title;
+                _contaxt.Description = _Corporation.Description;
+                _contaxt.Address = _contaxt.Address;
+                _contaxt.Telephone = _Corporation.Telephone;
                 _contaxt.ChangedDate = DateTime.Now;
                 _contaxt.ChangedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
                 return true;

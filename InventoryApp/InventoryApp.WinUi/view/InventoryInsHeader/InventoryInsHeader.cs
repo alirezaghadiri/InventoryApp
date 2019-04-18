@@ -55,9 +55,23 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
 
         private void ComboInventory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comoboCategory.DataSource = ProCat.GetByInventory((int)comboInventory.SelectedValue);
-            comoboCategory.DisplayMember = "Title";
-            comoboCategory.ValueMember = "ProductCategoryId";
+            int id = (int)comboInventory.SelectedValue;
+             ICollection<Entities.ProductCategory> Source= ProCat.GetByInventory(id);
+
+            if (Source.Count!=0)
+            {
+                comoboCategory.DataSource = ProCat.GetByInventory(id);
+                comoboCategory.DisplayMember = "Title";
+                comoboCategory.ValueMember = "ProductCategoryId";
+                btnchose.Enabled = true;
+                comoboCategory.Enabled = true;
+            }
+            else
+            {
+                comoboCategory.DataSource = null;
+                comoboCategory.Enabled = false;
+                btnchose.Enabled = false;
+            }
         }
 
         private void btnchose_Click(object sender, EventArgs e)
@@ -93,7 +107,7 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
                 decimal amount;
                 if (decimal.TryParse(txtamount.Text, out amount))
                 {
-                    object obj = invd.GetAmount(_product.ProductId);
+                    object obj = pro.GetAmount(_product.ProductId);
                     if (obj is decimal)
                     {
                         var ProductExist = (decimal)obj;
