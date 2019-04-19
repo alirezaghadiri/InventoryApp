@@ -13,7 +13,23 @@ namespace InventoryApp.Framwork
     {
         DataGridView grid;
         BindingSource bindingSource;
+        Dictionary<int, GridControlButtonModel> gridButton = new Dictionary<int, GridControlButtonModel>(); 
 
+        public bool AllowAddRows
+        {
+            get { return grid.AllowUserToAddRows; }
+            set { grid.AllowUserToAddRows = value; }
+        }
+        public bool AllowUserToDeleteRows
+        {
+            get { return grid.AllowUserToDeleteRows; }
+            set { grid.AllowUserToDeleteRows = value; }
+        }
+        public DataGridViewEditMode EditMode
+        {
+            get { return grid.EditMode; }
+            set { grid.EditMode = value;  }
+        }
         public GirdControl(Control container)
         {
             grid = new DataGridView();
@@ -26,7 +42,26 @@ namespace InventoryApp.Framwork
             grid.EditMode = DataGridViewEditMode.EditProgrammatically;
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grid.RowPrePaint += Grid_RowPrePaint;
+            grid.CellContentClick += Grid_CellContentClick;
         }
+
+        private void Grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (gridButton.ContainsKey(e.ColumnIndex))
+            {
+                gridButton[e.ColumnIndex].OnClick(grid.Rows[e.RowIndex]);
+            }
+        }
+
+        private void Grid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            foreach (var item in gridButton)
+            {
+                grid.Rows[e.RowIndex].Cells[item.Key].Value = item.Value.Text;
+            }
+        }
+
         public GirdControl<TModel> AddTextBoxColumn<TProperty>(Expression<Func<TModel,TProperty>> selector,string title)
         {
             var propertyName = new ExpressionHandler().GetPropertyName(selector);
@@ -70,7 +105,6 @@ namespace InventoryApp.Framwork
             
             return this;
         }
-
         public GirdControl<TModel> SetDataSource(IEnumerable<TModel> dataSource)
         {
             bindingSource = new BindingSource();
@@ -102,10 +136,32 @@ namespace InventoryApp.Framwork
                 return (TModel)bindingSource?.Current;
             }
         }
+
+
+        public GirdControl<TModel> AddButtonColumn(string title,Action<DataGridViewRow> onclick)
+        {
+            grid.Columns.Add(new DataGridViewButtonColumn()
+            {
+                Text = title,
+            });
+            gridButton.Add(grid.Columns.Count - 1, new GridControlButtonModel()
+            {
+                Text = title,
+                OnClick=onclick,
+            });
+            return this;
+        }
+
+
     }
     public class DatagridviewComboItem<Tvalue>
     {
         public string Display { get; set; }
         public Tvalue Value { get; set; }
+    }
+    public class GridControlButtonModel
+    {
+        public string Text { get; set; }
+        public Action<DataGridViewRow>  OnClick { get; set; }
     }
 }

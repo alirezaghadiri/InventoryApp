@@ -28,7 +28,7 @@ namespace InventoryApp.Entities
         public DateTime? ChangedDate { get; set; }
         public int? ChangedByUserId { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
         public static EntityTypeConfiguration<ProductUnit> Map()
         {

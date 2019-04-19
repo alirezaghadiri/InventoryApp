@@ -10,6 +10,7 @@ namespace InventoryApp.RepositortAbstracts
         bool Update(InventoryOutsHeader _InventoryOutsHeader);
         bool Delete(int id);
         InventoryOutsHeader Find(int id);
-        ICollection<InventoryOutsHeader> GetAll();
+        ICollection<InventoryOutsHeader> GetAll(bool IsAccept = true);
+        bool Accept(int id);
     }
 }

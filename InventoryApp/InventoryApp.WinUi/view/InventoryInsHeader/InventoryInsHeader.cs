@@ -94,8 +94,11 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
             }, true);
             if (result.DialogResult == DialogResult.OK)
             {
-                _product = result.product;
-                txtProduct.Text = _product.Title;
+                if (result.product != default(Entities.Product))
+                {
+                    _product = result.product;
+                    txtProduct.Text = _product.Title;
+                }
             }
         }
         private void btnAddToList_Click(object sender, EventArgs e)

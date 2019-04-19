@@ -81,10 +81,9 @@ namespace InventoryApp.Repositories
                 return false;
             }
         }
-        public ICollection<InventoryOutsHeader> GetAll()
+        public ICollection<InventoryOutsHeader> GetAll(bool IsAccept = true)
         {
-            return contaxt.InventoryOutsHeaders
-            .Where(p => p.Deleted == false).ToList();
+            return contaxt.InventoryOutsHeaders.Where(p => p.Deleted == false & p.Accepted==IsAccept).ToList();
         }
 
         public int AddReturnId(InventoryOutsHeader _InventoryOutsHeader)
@@ -102,6 +101,23 @@ namespace InventoryApp.Repositories
             {
                 return 0;
             }
+        }
+
+        public bool Accept(int id)
+        {
+            try
+            {
+                var _contaxt = contaxt.InventoryOutsHeaders.Where(p => p.InventoryOutsHeaderId == id).FirstOrDefault();
+                _contaxt.Accepted = true;
+                _contaxt.AcceptedDate = DateTime.Now;
+                _contaxt.AcceptedByUserId = DatabaseTools.GetUserID; contaxt.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

@@ -13,10 +13,13 @@ namespace InventoryApp.Framwork
     {
         private MenuHandler menuhandler;
         private ViewEngine viewengine;
+
+        public Panel _panel;
         public MainFormBase()
         {
             InitializeComponent();
             menuhandler = new MenuHandler(menuStrip.Items);
+            _panel = Mainpanel;
         }
         public ViewEngine viewEngine
         {
@@ -50,4 +53,5 @@ namespace InventoryApp.Framwork
             lblUser.Text = "کاربر جاری : " + System.Threading.Thread.CurrentPrincipal.Identity.Name;
         }
     }
+   
 }
