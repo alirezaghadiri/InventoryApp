@@ -72,14 +72,14 @@ namespace InventoryApp.WinUi.view.Inventory
             decimal Capacity = ProCat.Find(categoryId).Capacity;
 
             string info = string.Empty;
-            info += "ظرفیت کل : " + Capacity + Environment.NewLine;
-            info += "ظرفیت استفاده شده : " + TotalUse + Environment.NewLine;
-            info += "ظرفیت آزاد : " + (Capacity- TotalUse) + Environment.NewLine;
+            info += "ظرفیت کل : " + Capacity + Environment.NewLine + Environment.NewLine;
+            info += "ظرفیت استفاده شده : " + TotalUse + Environment.NewLine + Environment.NewLine;
+            info += "ظرفیت آزاد : " + (Capacity- TotalUse) + Environment.NewLine + Environment.NewLine + Environment.NewLine; ;
 
-            info += "کالا ها :" + Environment.NewLine;
+            info += "کالا ها :" + Environment.NewLine + Environment.NewLine;
             foreach (var item in Pdata)
             {
-                    info += "  " + item.Title + "  مقدار ("+ pro.GetAmount(item.ProductId)+")";
+                    info += "  \t\t\t\t\t" + item.Title +"\t\t\t"+ "  مقدار ("+ pro.GetAmount(item.ProductId)+")"+item.Unit.Title+Environment.NewLine;
             }
             return info;
         }

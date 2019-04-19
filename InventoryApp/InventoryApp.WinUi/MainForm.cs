@@ -40,12 +40,10 @@ namespace InventoryApp.WinUi
             menuRepoType.addmenu("تعریف نوع رسید ورودی", null, Keys.None, (obj, e) =>
             {
                 viewEngine.ViewInForm<view.InventoryInsType.List>(null, true);
-                MainForm_Load(null, null);
             });
             menuRepoType.addmenu("تعریف نوع رسید خروجی", null, Keys.None, (obj, e) =>
             {
                 viewEngine.ViewInForm<view.InventoryOutsType.List>(null, true);
-                MainForm_Load(null, null);
             });
 
             menu.addSeparator();
@@ -53,9 +51,43 @@ namespace InventoryApp.WinUi
 
 
             var menu1 = addmenu("عملیات", null, Keys.None, null);
-            menu1.addmenu("ورود", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryInsHeader.List>(null, true));
+            menu1.addmenu("ورودکالا", null, Keys.None, (obj, e) =>
+            {
+                view.InventoryInsHeader.InventoryInsHeader IH = new view.InventoryInsHeader.InventoryInsHeader();
+                if (IH.ShowDialog() == DialogResult.OK)
+                {
+                    grid.AddItem(new QueueDetials()
+                    {
+                        InventoryInsHeaderId = IH._InventoryInsHeader.InventoryInsHeaderId,
+                        InventoryType = 0,
+                        Date = DateTime.Now,
+                        Title= IH._InventoryInsHeader.Title,
+                        TypeId= IH._InventoryInsHeader.TypeId,
+                        InventoryId=IH._InventoryInsHeader.InventoryId,
+                    });
+                    grid.ResetBindings();
+                }
 
-            menu1.addmenu("خروج", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryOutsHeader.List>(null, true));
+            });
+
+            menu1.addmenu("خروج کالا", null, Keys.None, (obj, e) =>
+            {
+                view.InventoryOutsHeader.InventoryOutsHeader IH = new view.InventoryOutsHeader.InventoryOutsHeader();
+                if (IH.ShowDialog() == DialogResult.OK)
+                {
+                    var entity = new QueueDetials()
+                    {
+                        InventoryInsHeaderId = IH._InventoryOutsHeader.InventoryOutsHeaderId,
+                        InventoryType = 1,
+                        Date = DateTime.Now,
+                        Title = IH._InventoryOutsHeader.Title,
+                        TypeId = IH._InventoryOutsHeader.TypeId,
+                        InventoryId = IH._InventoryOutsHeader.InventoryId,
+                    };
+                    grid.AddItem(entity);
+                    grid.ResetBindings();
+                }
+            });
 
             var menu2 = addmenu("گزارش", null, Keys.None, null);
             menu2.addmenu("انبار", null, Keys.None, (obj, e) =>
@@ -63,6 +95,8 @@ namespace InventoryApp.WinUi
                 view.Inventory.InventoryReport ir = new view.Inventory.InventoryReport();
                 ir.ShowDialog();
             });
+            menu2.addmenu("ورود کالا", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryInsHeader.List>(null, true));
+            menu2.addmenu("خروج کالا", null, Keys.None, (obj, e) => viewEngine.ViewInForm<view.InventoryOutsHeader.List>(null, true));
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -82,17 +116,38 @@ namespace InventoryApp.WinUi
             });
             grid.AddButtonColumn("تایید", row =>
              {
-                 if (inh.Accept((int)row.Cells[0].Value))
+                 if ((int)row.Cells[3].Value == 0)
                  {
-                     MainForm_Load(null, null);
-                     MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
+                     if (inh.Accept((int)row.Cells[0].Value))
+                     {
+                         grid.RemoveCurrent();
+                         grid.ResetBindings();
+                         MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
+                     }
+                     else
+                     {
+                         MessageBox.Show("مشکل در تایید", "پیام سیستم");
+                     }
                  }
-                 else
+                 if((int)row.Cells[3].Value == 1)
                  {
-                     MessageBox.Show("مشکل در تایید", "پیام سیستم");
+                     if (outh.Accept((int)row.Cells[0].Value))
+                     {
+                         grid.RemoveCurrent();
+                         grid.ResetBindings();
+                         MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
+                     }
+                     else
+                     {
+                         MessageBox.Show("مشکل در تایید", "پیام سیستم");
+                     }
                  }
+                 
              });
-           
+            load();
+        }
+        public void load()
+        {
             List<QueueDetials> listData = new List<QueueDetials>();
             foreach (var item in inh.GetAll(false))
             {
@@ -118,11 +173,19 @@ namespace InventoryApp.WinUi
                     Date = item.Date,
                 });
             }
-            if(listData!=null)
+            if (listData.Count != 0)
+            {
+                grid.SetDataSource(null);
                 grid.EditMode = DataGridViewEditMode.EditOnEnter;
-            grid.SetDataSource(listData.OrderBy(p => p.Date));
+                grid.SetDataSource(listData.OrderBy(p => p.Date));
+                grid.ResetBindings();
+            }
+            else
+            {
+                grid.EditMode = DataGridViewEditMode.EditProgrammatically;
+                grid.SetDataSource(null);
+            }
         }
-
 
     }
     public class QueueDetials

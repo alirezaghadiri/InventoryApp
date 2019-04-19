@@ -42,7 +42,7 @@ namespace InventoryApp.Framwork
 
         private void lblintask_Click(object sender, EventArgs e)
         {
-            
+            this.WindowState = FormWindowState.Minimized;
         }
         protected MenuHandler addmenu(string title, Image img,Keys ShortcutKey, EventHandler evenhander)
         {
@@ -50,7 +50,7 @@ namespace InventoryApp.Framwork
         }
         private void MainFormBase_Load(object sender, EventArgs e)
         {
-            lblUser.Text = "کاربر جاری : " + System.Threading.Thread.CurrentPrincipal.Identity.Name;
+            toolStripStatusLabeluser.Text = "کاربر جاری : " + System.Threading.Thread.CurrentPrincipal.Identity.Name;
         }
     }
    

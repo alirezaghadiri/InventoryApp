@@ -43,6 +43,7 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
             comoboCategory.DataSource = ProCat.GetByInventory((int)comboInventory.SelectedValue);
             comoboCategory.DisplayMember = "Title";
             comoboCategory.ValueMember = "ProductCategoryId";
+            comoboCategory.SelectedIndexChanged += ComoboCategory_SelectedIndexChanged;
 
             combotype.DataSource = type.GetAll();
             combotype.DisplayMember = "Title";
@@ -53,25 +54,52 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
             grid.SetDataSource(ListDeatil);
         }
 
+        private void ComoboCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = (int)comoboCategory.SelectedValue;
+                ICollection<Entities.Product> Source = pro.GetAll(id);
+                if (Source.Count != 0)
+                {
+                    btnchose.Enabled = true;
+                }
+                else
+                {
+                    btnchose.Enabled = false;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("خطا پیش آمده", "پیام سیستم");
+            }
+           
+        }
+
         private void ComboInventory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int id = (int)comboInventory.SelectedValue;
-             ICollection<Entities.ProductCategory> Source= ProCat.GetByInventory(id);
+            try
+            {
+                int id = (int)comboInventory.SelectedValue;
+                ICollection<Entities.ProductCategory> Source = ProCat.GetByInventory(id);
 
-            if (Source.Count!=0)
-            {
-                comoboCategory.DataSource = ProCat.GetByInventory(id);
-                comoboCategory.DisplayMember = "Title";
-                comoboCategory.ValueMember = "ProductCategoryId";
-                btnchose.Enabled = true;
-                comoboCategory.Enabled = true;
+                if (Source.Count != 0)
+                {
+                    comoboCategory.DataSource = ProCat.GetByInventory(id);
+                    comoboCategory.DisplayMember = "Title";
+                    comoboCategory.ValueMember = "ProductCategoryId";
+                    comoboCategory.Enabled = true;
+                }
+                else
+                {
+                    comoboCategory.DataSource = null;
+                }
             }
-            else
+            catch 
             {
-                comoboCategory.DataSource = null;
-                comoboCategory.Enabled = false;
-                btnchose.Enabled = false;
+                MessageBox.Show("خطا پیش آمده", "پیام سیستم");
             }
+           
         }
 
         private void btnchose_Click(object sender, EventArgs e)
@@ -122,9 +150,7 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
                             grid.AddItem(InentoryDeatiles);
                             grid.ResetBindings();
                             txtamount.Text = string.Empty;
-                            txttitle.Text = string.Empty;
                             txtProduct.Text = string.Empty;
-                            txtdsc.Text = string.Empty;
                         }
                         else
                             MessageBox.Show("انبار ظرفیت ندارد", "پیام سیستم");
@@ -142,14 +168,15 @@ namespace InventoryApp.WinUi.view.InventoryOutsHeader
         }
         private void btnadd_Click(object sender, EventArgs e)
         {
-            int result = invh.AddReturnId(new Entities.InventoryOutsHeader
+            _InventoryOutsHeader = new Entities.InventoryOutsHeader
             {
                 InventoryId = (int)comboInventory.SelectedValue,
                 TypeId = (int)combotype.SelectedValue,
                 Title = txttitle.Text,
                 Description = txtdsc.Text,
                 Date = DateTime.Now,
-            });
+            };
+            int result = invh.AddReturnId(_InventoryOutsHeader);
 
             if (result == 0)
                 MessageBox.Show("مشکل در ثبت به وجود امد", "پیام سیستم");

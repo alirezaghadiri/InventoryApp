@@ -50,6 +50,9 @@ namespace InventoryApp.DataLayer
     {
         protected override void Seed(InventoryDBContext context)
         {
+            var contaxt = new InventoryDBContext();
+
+
             var password = "admin";
             var username = "admin";
             var passwordsalt = Guid.NewGuid().ToString("N");
@@ -64,8 +67,32 @@ namespace InventoryApp.DataLayer
                 RegisterDate = DateTime.Now,
                 Deleted = false
             };
-            var contaxt = new InventoryDBContext();
             contaxt.Users.Add(_userentity);
+
+
+
+
+            //context.Corporations.Add(new Entities.Corporation()
+            //{
+            //    Title = "توسکا",
+            //    Description = "ندارد",
+            //    Address = "ندارد",
+            //    Telephone = "12345",
+            //    Deleted = false,
+            //    CreatedByUserId = DatabaseTools.GetUserID,
+            //    CreatedDate = DateTime.Now,
+            //});
+            //context.Corporations.Add(new Entities.Corporation()
+            //{
+            //    Title = "برج درفک شمال",
+            //    Description = "ندارد",
+            //    Address = "ندارد",
+            //    Telephone = "12345",
+            //    Deleted = false,
+            //    CreatedByUserId = DatabaseTools.GetUserID,
+            //    CreatedDate = DateTime.Now,
+            //});
+            
             contaxt.SaveChanges();
 
             base.Seed(context);

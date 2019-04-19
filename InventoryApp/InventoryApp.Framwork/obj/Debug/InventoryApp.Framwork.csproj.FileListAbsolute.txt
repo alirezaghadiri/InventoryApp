@@ -7,4 +7,3 @@ F:\GitRepository\C#\InventoryApp\InventoryApp.Framwork\obj\Debug\InventoryApp.Fr
 F:\GitRepository\C#\InventoryApp\InventoryApp.Framwork\bin\Debug\StructureMap.dll
 F:\GitRepository\C#\InventoryApp\InventoryApp.Framwork\bin\Debug\StructureMap.xml
 F:\GitRepository\C#\InventoryApp\InventoryApp.Framwork\obj\Debug\InventoryApp.Framwork.MainFormBase.resources
-F:\GitRepository\C#\InventoryApp\InventoryApp.Framwork\obj\Debug\InventoryApp.Framwork.csprojResolveAssemblyReference.cache

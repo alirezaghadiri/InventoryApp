@@ -15,6 +15,10 @@ namespace InventoryApp.Framwork
         BindingSource bindingSource;
         Dictionary<int, GridControlButtonModel> gridButton = new Dictionary<int, GridControlButtonModel>(); 
 
+        public BindingSource DataSource
+        {
+            get { return bindingSource; }
+        }
         public bool AllowAddRows
         {
             get { return grid.AllowUserToAddRows; }

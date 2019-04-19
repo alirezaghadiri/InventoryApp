@@ -19,32 +19,32 @@ namespace InventoryApp.WinUi.view.InventoryInsHeader
         }
         protected override void OnLoad(EventArgs e)
         {
-            AddAction("افزودن", btn =>
-            {
-                InventoryInsHeader IH = new InventoryInsHeader();
-                if (IH.ShowDialog() == DialogResult.OK)
-                {
-                    grid.AddItem(IH._InventoryInsHeader);
-                    grid.ResetBindings();
-                }
-            });
-            AddAction("حذف", btn =>
-            {
-                int id = grid.CurrentItem.InventoryInsHeaderId;
-                if (Invs.Delete(id))
-                {
-                    foreach (var item in invd.GetAll().Where(p => p.InventoryInsHeaderId == id).ToList())
-                    {
-                        invd.Delete(item);
-                    }
-                    grid.ResetBindings();
-                    MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
-                }
-                else
-                {
-                    MessageBox.Show("مشکل در   به وجود آمد", "پیام سیستم");
-                }
-            });
+            //AddAction("افزودن", btn =>
+            //{
+            //    InventoryInsHeader IH = new InventoryInsHeader();
+            //    if (IH.ShowDialog() == DialogResult.OK)
+            //    {
+            //        grid.AddItem(IH._InventoryInsHeader);
+            //        grid.ResetBindings();
+            //    }
+            //});
+            //AddAction("حذف", btn =>
+            //{
+            //    int id = grid.CurrentItem.InventoryInsHeaderId;
+            //    if (Invs.Delete(id))
+            //    {
+            //        foreach (var item in invd.GetAll().Where(p => p.InventoryInsHeaderId == id).ToList())
+            //        {
+            //            invd.Delete(item);
+            //        }
+            //        grid.ResetBindings();
+            //        MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("مشکل در   به وجود آمد", "پیام سیستم");
+            //    }
+            //});
 
             grid = new Framwork.GirdControl<Entities.InventoryInsHeader>(this);
             grid.AddTextBoxColumn(p => p.InventoryInsHeaderId, "شناسه");
