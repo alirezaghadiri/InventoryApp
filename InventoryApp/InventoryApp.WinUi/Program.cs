@@ -14,6 +14,7 @@ namespace InventoryApp.WinUi
         [STAThread]
         static void Main()
         {
+            Framwork.Cultures.InitializePersianCulture();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var splashForm = new view.systemform.SplashScreenForm();

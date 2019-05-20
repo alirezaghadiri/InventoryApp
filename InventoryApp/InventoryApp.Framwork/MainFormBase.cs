@@ -18,6 +18,14 @@ namespace InventoryApp.Framwork
         public MainFormBase()
         {
             InitializeComponent();
+            timertime.Tick += (obj, e) =>
+            {
+                toolStripStatusLabelTime.Text = DateTime.Now.ToString("dd MMM yyyy hh:mm:ss");
+            };
+            timertime.Interval = 1000;
+            timertime.Start();
+
+
             menuhandler = new MenuHandler(menuStrip.Items);
             _panel = Mainpanel;
         }
@@ -51,6 +59,11 @@ namespace InventoryApp.Framwork
         private void MainFormBase_Load(object sender, EventArgs e)
         {
             toolStripStatusLabeluser.Text = "کاربر جاری : " + System.Threading.Thread.CurrentPrincipal.Identity.Name;
+        }
+
+        public void Setstatus(string Massege)
+        {
+            toolStripStatusLabel.Text = Massege;
         }
     }
    

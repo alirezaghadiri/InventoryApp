@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cultures.cs" />
     <Compile Include="EntityEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -22,6 +22,7 @@ namespace InventoryApp.WinUi
         public MainForm()
         {
             InitializeComponent();
+            Setstatus("وضعیت : در حال بار گذاری");
             TypesRegistry = new IOC.TypesResgistry();
             var menu = addmenu("اطلاعات پایه", null, Keys.None, null);
 
@@ -61,9 +62,9 @@ namespace InventoryApp.WinUi
                         InventoryInsHeaderId = IH._InventoryInsHeader.InventoryInsHeaderId,
                         InventoryType = 0,
                         Date = DateTime.Now,
-                        Title= IH._InventoryInsHeader.Title,
-                        TypeId= IH._InventoryInsHeader.TypeId,
-                        InventoryId=IH._InventoryInsHeader.InventoryId,
+                        Title = IH._InventoryInsHeader.Title,
+                        TypeId = IH._InventoryInsHeader.TypeId,
+                        InventoryId = IH._InventoryInsHeader.InventoryId,
                     });
                     grid.ResetBindings();
                 }
@@ -111,40 +112,55 @@ namespace InventoryApp.WinUi
             grid.AddTextBoxColumn(p => p.Date, "تاریخ");
             grid.AddButtonColumn("جزییات", row =>
             {
+                Setstatus("وضعیت : در حال پردازش");
                 view.InventoryInsDeatil.ListDeatil ld = new view.InventoryInsDeatil.ListDeatil((int)row.Cells[0].Value, (int)row.Cells[3].Value);
                 ld.ShowDialog();
+                Setstatus("وضعیت : آماده استفاده");
             });
             grid.AddButtonColumn("تایید", row =>
              {
-                 if ((int)row.Cells[3].Value == 0)
+                 Setstatus("وضعیت : در حال پردازش");
+                 switch ((int)row.Cells[3].Value)
                  {
-                     if (inh.Accept((int)row.Cells[0].Value))
-                     {
-                         grid.RemoveCurrent();
-                         grid.ResetBindings();
-                         MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
-                     }
-                     else
-                     {
-                         MessageBox.Show("مشکل در تایید", "پیام سیستم");
-                     }
+                     case 0:
+                         {
+                             if (inh.Accept((int)row.Cells[0].Value))
+                             {
+                                 grid.RemoveCurrent();
+                                 grid.ResetBindings();
+                                 MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
+                             }
+                             else
+                             {
+                                 MessageBox.Show("مشکل در تایید", "پیام سیستم");
+                             }
+                             break;
+                         }
+                     case 1:
+                         {
+                             if (outh.Accept((int)row.Cells[0].Value))
+                             {
+                                 grid.RemoveCurrent();
+                                 grid.ResetBindings();
+                                 MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
+                             }
+                             else
+                             {
+                                 MessageBox.Show("مشکل در تایید", "پیام سیستم");
+                             }
+                             break;
+                         }
+                     default:
+                         {
+                             MessageBox.Show("مشکل در تایید", "پیام سیستم");
+                             break;
+                         }
                  }
-                 if((int)row.Cells[3].Value == 1)
-                 {
-                     if (outh.Accept((int)row.Cells[0].Value))
-                     {
-                         grid.RemoveCurrent();
-                         grid.ResetBindings();
-                         MessageBox.Show("با موفقیت انجام شد", "پیام سیستم");
-                     }
-                     else
-                     {
-                         MessageBox.Show("مشکل در تایید", "پیام سیستم");
-                     }
-                 }
-                 
+
+                 Setstatus("وضعیت : آماده استفاده");
              });
             load();
+            Setstatus("وضعیت : آماده استفاده");
         }
         public void load()
         {
