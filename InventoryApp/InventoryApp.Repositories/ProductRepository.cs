@@ -61,9 +61,8 @@ namespace InventoryApp.Repositories
         {
             try
             {
-                var _contaxt = contaxt.Products
-                .Where(p => p.ProductId == _Product.ProductId).FirstOrDefault();
-                _contaxt.ProductId = _Product.ProductId;
+                var _contaxt = contaxt.Products.Where(p => p.ProductId == _Product.ProductId).FirstOrDefault();
+                //_contaxt.ProductId = _Product.ProductId;
                 _contaxt.ProductCategoryId = _Product.ProductCategoryId;
                 _contaxt.ProductUnitId = _Product.ProductUnitId;
                 _contaxt.Code = _Product.Code;
@@ -74,7 +73,7 @@ namespace InventoryApp.Repositories
                 contaxt.SaveChanges();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
